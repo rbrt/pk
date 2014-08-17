@@ -100,7 +100,10 @@ public class PlayerController : MonoBehaviour {
         animateDude.Punch();
 
         RaycastHit info;
-        if (Physics.Raycast(transform.position, transform.right * punchRange, out info)){
+
+        Debug.DrawRay(transform.position, (transform.right * punchRange), Color.green, 2f);
+
+        if (Physics.Raycast(transform.position, transform.right, out info, punchRange)){
             if (info.collider.name.Equals("Enemy")){
                 info.collider.GetComponent<Enemy>().TakeDamage();
             }

@@ -32,60 +32,63 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Update () {
-        var pos = transform.localPosition;
+        if (enemyState != EnemyStates.Dead){
 
-        if (health <= 0 && enemyState != EnemyStates.Dead){
-            enemyState = EnemyStates.Dead;
-            behaviourCoroutine.Stop();
-            this.StartSafeCoroutine(Dead());
-        }
+            var pos = transform.localPosition;
 
-        if (enemyState == EnemyStates.Moving){
-            // Check if close enough
-            if (InRangeForAttack()){
-                enemyState=EnemyStates.Attacking;
-            }
-            else{
-                // move down
-                if (player.transform.position.y < pos.y){
-                    pos.y -= vMoveSpeed;
-                }
-                // move up
-                else if (player.transform.position.y > pos.y){
-                    pos.y += vMoveSpeed;
-                }
-                // move left
-                if (player.transform.position.x < pos.x){
-                    pos.x -= hMoveSpeed;
-                }
-                // move right
-                else if (player.transform.position.x > pos.x){
-                    pos.x += hMoveSpeed;
-                }
-            }
-        }
-        else if (enemyState == EnemyStates.Attacking){
-            if (InRangeForAttack() && !punching){
-                behaviourCoroutine = this.StartSafeCoroutine(Punch());
-            }
-            else{
-                enemyState = EnemyStates.Moving;
+            if (health <= 0 && enemyState != EnemyStates.Dead){
+                enemyState = EnemyStates.Dead;
+                behaviourCoroutine.Stop();
+                this.StartSafeCoroutine(Dead());
             }
 
+            if (enemyState == EnemyStates.Moving){
+                // Check if close enough
+                if (InRangeForAttack()){
+                    enemyState=EnemyStates.Attacking;
+                }
+                else{
+                    // move down
+                    if (player.transform.position.y < pos.y){
+                        pos.y -= vMoveSpeed;
+                    }
+                    // move up
+                    else if (player.transform.position.y > pos.y){
+                        pos.y += vMoveSpeed;
+                    }
+                    // move left
+                    if (player.transform.position.x < pos.x){
+                        pos.x -= hMoveSpeed;
+                    }
+                    // move right
+                    else if (player.transform.position.x > pos.x){
+                        pos.x += hMoveSpeed;
+                    }
+                }
+            }
+            else if (enemyState == EnemyStates.Attacking){
+                if (InRangeForAttack() && !punching){
+                    behaviourCoroutine = this.StartSafeCoroutine(Punch());
+                }
+                else{
+                    enemyState = EnemyStates.Moving;
+                }
+
+            }
+            else if (enemyState == EnemyStates.Damaged){
+
+            }
+            else if (enemyState == EnemyStates.Dead){
+
+            }
+
+            transform.rotation = player.transform.position.x < transform.position.x ?
+                                 Quaternion.Euler(new Vector3(0, 180, 0)) :
+                                 Quaternion.Euler(Vector3.zero);
+
+            transform.localPosition = pos;
         }
-        else if (enemyState == EnemyStates.Damaged){
-
-        }
-        else if (enemyState == EnemyStates.Dead){
-
-        }
-
-        transform.rotation = player.transform.position.x < transform.position.x ?
-                             Quaternion.Euler(new Vector3(0, 180, 0)) :
-                             Quaternion.Euler(Vector3.zero);
-
-        transform.localPosition = pos;
-
+        
 	}
 
     bool InRangeForAttack(){
