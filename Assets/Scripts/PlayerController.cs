@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 
     protected float hMoveSpeed = .03f,
                     vMoveSpeed = .02f,
-                    punchDuration = .2f,
+                    punchDuration = .3f,
                     punchRange = .5f,
                     damageDuration = .2f;
 

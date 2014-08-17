@@ -3,30 +3,58 @@ using System.Collections;
 
 public class AnimateDude : MonoBehaviour {
 
-    [SerializeField] protected Sprite idleSprite,
-                                      punchSprite,
-                                      damageSprite,
-                                      deadSprite;
+    [SerializeField] protected Sprite[] idleSprites,
+                                        punchSprites,
+                                        damageSprites,
+                                        deadSprites;
 
     protected SpriteRenderer spriteRenderer;
 
+    protected float animationSpeed = .025f;
+
+    SafeCoroutine animationCoroutine;
+
+    IEnumerator Primer(){
+        yield break;
+    }
+
 	void Start () {
+        animationCoroutine = this.StartSafeCoroutine(Primer());
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
+    void CancelCurrentAnimation(){
+        if (animationCoroutine.IsRunning || animationCoroutine.IsPaused){
+            animationCoroutine.Stop();
+        }
+    }
+
+    IEnumerator Animate(Sprite[] frames){
+        int frameCount = 0;
+        while (frameCount < frames.Length){
+            spriteRenderer.sprite = frames[frameCount];
+            frameCount++;
+            yield return new WaitForSeconds(animationSpeed);
+        }
+    }
+
     public void Punch(){
-        spriteRenderer.sprite = punchSprite;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(punchSprites));
     }
 
     public void Idle(){
-        spriteRenderer.sprite = idleSprite;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(idleSprites));
     }
 
     public void Damage(){
-        spriteRenderer.sprite = damageSprite;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(damageSprites));
     }
 
     public void Dead(){
-        spriteRenderer.sprite = deadSprite;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(deadSprites));
     }
 }

@@ -88,7 +88,6 @@ public class Enemy : MonoBehaviour {
 
             transform.localPosition = pos;
         }
-        
 	}
 
     bool InRangeForAttack(){
