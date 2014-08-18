@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour {
                     damageDuration = .2f;
 
     protected AnimateDude animateDude;
+
+    protected string[] enemyTypes = {"Skinhead",
+                                     "Enemy"};
 
     void Start(){
         animateDude = GetComponentInChildren<AnimateDude>();
@@ -104,7 +108,7 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(transform.position, (transform.right * punchRange), Color.green, 2f);
 
         if (Physics.Raycast(transform.position, transform.right, out info, punchRange)){
-            if (info.collider.name.Equals("Enemy")){
+            if (enemyTypes.Any(x => info.collider.name.Equals(x))){
                 info.collider.GetComponent<Enemy>().TakeDamage();
             }
         }
