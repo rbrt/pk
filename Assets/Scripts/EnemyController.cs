@@ -5,10 +5,17 @@ using System.Linq;
 
 public class EnemyController : MonoBehaviour {
 
+    // Idle range: x = (-2, 2) y = (-.5, .5)
+
+
+    [SerializeField] protected GameObject player;
     [SerializeField] protected List<GameObject> enemyList;
     [SerializeField] protected FightSequence fightSequence;
     [SerializeField] protected Transform leftSpawnLocation,
                                          rightSpawnLocation;
+
+    protected float idleXCoord = 1.9f,
+                    idleYCoord = .5f;
 
     public List<GameObject> EnemyList {
         get { return enemyList; }
@@ -23,6 +30,13 @@ public class EnemyController : MonoBehaviour {
         }
 
         return null;
+    }
+
+    Vector3 FindIdlePosition(){
+        var position = player.transform.position;
+        position.x += Random.Range(-idleXCoord, idleXCoord);
+        position.y += Random.Range(-idleYCoord, idleYCoord);
+        return position;
     }
 
     public enum SpawnBehaviour {Random, Left, Right};
@@ -42,11 +56,12 @@ public class EnemyController : MonoBehaviour {
         else if (spawnBehaviour == SpawnBehaviour.Left){
             position = leftSpawnLocation.position;
         }
-        
+
         position.y += (Random.Range(-100, 100) / 100f);
 
         var enemy = GameObject.Instantiate(enemyToInstantiate, position, Quaternion.Euler(Vector3.zero)) as GameObject;
         enemy.GetComponent<Enemy>().SetFightSequence(fightSequence);
+        enemy.GetComponent<Enemy>().Destination = FindIdlePosition();
         enemyList.Add(enemy);
     }
 }

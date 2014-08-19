@@ -37,7 +37,7 @@ public class FightSequence : MonoBehaviour {
                 fightingEnemies[index] = new FightingEnemy(playerTransform, ref targetPosition, enemy);
                 occupiedPositions[targetPosition] = true;
 
-                // behaviour to handle enemy moving somewhere should probably occur here
+                enemy.GetComponent<Enemy>().Destination = targetPosition.position;
             }
         }
 	}

@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour {
 
     protected PlayerController player;
 
-    protected enum EnemyStates {Moving, Attacking, Damaged, Dead};
+    protected enum EnemyStates {Moving, Attacking, Damaged, Dead, Idle};
     protected EnemyStates enemyState;
 
     [SerializeField] protected float hMoveSpeed = .03f,
@@ -16,23 +16,31 @@ public class Enemy : MonoBehaviour {
                                      damageDuration = .2f;
 
     protected AnimateDude animateDude;
-
     protected int health = 5;
-
     protected bool punching = false;
-
     protected SafeCoroutine behaviourCoroutine;
-
     protected FightSequence fightSequence;
+    protected Vector3 destinationPosition;
 
     public void SetFightSequence(FightSequence sequence){
         fightSequence = sequence;
     }
 
+    public Vector3 Destination{
+        get { return destinationPosition; }
+        set { destinationPosition = value; }
+    }
+
+    static GameObject itsme;
+
 	void Start () {
         player = GameObject.Find("PlayerCharacter").GetComponent<PlayerController>();
         enemyState = EnemyStates.Moving;
         animateDude = GetComponentInChildren<AnimateDude>();
+
+        if (itsme == null){
+            itsme = gameObject;
+        }
 
         behaviourCoroutine = this.StartSafeCoroutine(Primer());
 	}
@@ -49,12 +57,23 @@ public class Enemy : MonoBehaviour {
             }
 
             if (enemyState == EnemyStates.Moving){
+                float distanceThreshold = .1f;
+
+                pos = Vector3.MoveTowards(transform.position, destinationPosition, .05f);
+
+                if (Vector3.Distance(transform.position, destinationPosition) < distanceThreshold){
+                    // Do stufffff
+                }
+                
+                // Move until reaching destination
+
+                /*
                 // Check if close enough
                 if (InRangeForAttack()){
                     enemyState=EnemyStates.Attacking;
                 }
                 else{
-                    /*
+
                     // move down
                     if (player.transform.position.y < pos.y){
                         pos.y -= vMoveSpeed;
@@ -63,7 +82,7 @@ public class Enemy : MonoBehaviour {
                     else if (player.transform.position.y > pos.y){
                         pos.y += vMoveSpeed;
                     }
-                    */
+
 
                     // move left
                     if (player.transform.position.x < pos.x){
@@ -74,6 +93,7 @@ public class Enemy : MonoBehaviour {
                         pos.x += hMoveSpeed;
                     }
                 }
+                */
             }
             else if (enemyState == EnemyStates.Attacking){
                 if (InRangeForAttack() && !punching){
@@ -85,6 +105,9 @@ public class Enemy : MonoBehaviour {
 
             }
             else if (enemyState == EnemyStates.Damaged){
+
+            }
+            else if (enemyState == EnemyStates.Idle){
 
             }
             else if (enemyState == EnemyStates.Dead){
