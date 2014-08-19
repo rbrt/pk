@@ -167,6 +167,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1 &260573813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 260573814}
+  m_Layer: 0
+  m_Name: TopLeftFightPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &260573814
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260573813}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.731570005, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 913512234}
+  m_RootOrder: 1
 --- !u!1 &671342926
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +271,33 @@ MonoBehaviour:
   damageSprites:
   - {fileID: 21300000, guid: 974506b23a889441ba6e8b32aa4860ca, type: 3}
   deadSprites: []
+--- !u!1 &703451662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 703451663}
+  m_Layer: 0
+  m_Name: BottomLeftFightPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &703451663
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 703451662}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.863659978, y: -.9551, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 913512234}
+  m_RootOrder: 3
 --- !u!1 &856776082
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +327,37 @@ Transform:
   - {fileID: 966611707}
   m_Father: {fileID: 1631632038}
   m_RootOrder: 0
+--- !u!1 &913512233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 913512234}
+  m_Layer: 0
+  m_Name: FightPositions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &913512234
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 913512233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0174493026, y: .244387165, z: .0049571991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1723698278}
+  - {fileID: 260573814}
+  - {fileID: 1166383915}
+  - {fileID: 703451663}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &966611706
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +427,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1 &1166383914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1166383915}
+  m_Layer: 0
+  m_Name: BottomRightFightPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1166383915
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1166383914}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .690919995, y: -.924619973, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 913512234}
+  m_RootOrder: 2
 --- !u!1 &1280485264
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +650,33 @@ Transform:
   - {fileID: 856776083}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1723698277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1723698278}
+  m_Layer: 0
+  m_Name: TopRightFightPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1723698278
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1723698277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .680760026, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 913512234}
+  m_RootOrder: 0
 --- !u!1 &1819704544
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,8 +704,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d2ea956b0894016ac59cc95a38e3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fightPositions: []
+  fightPositions:
+  - {fileID: 1723698278}
+  - {fileID: 260573814}
+  - {fileID: 1166383915}
+  - {fileID: 703451663}
   enemies: []
+  enemyController: {fileID: 1004536423}
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0

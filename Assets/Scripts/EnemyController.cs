@@ -16,7 +16,12 @@ public class EnemyController : MonoBehaviour {
     // Returns an available, idle enemy to be used to join the fight
     public GameObject GetIdleEnemy(List<GameObject> currentEnemies){
         var possibleEnemies = enemyList.Where(x => !currentEnemies.Contains(x)).ToList();
-        return possibleEnemies[Random.Range(0, possibleEnemies.Count-1)];
+
+        if (possibleEnemies.Count > 1){
+            return possibleEnemies[Random.Range(0, possibleEnemies.Count-1)];
+        }
+
+        return null;
     }
 
     public enum SpawnBehaviour {Random, Left, Right};
@@ -40,8 +45,6 @@ public class EnemyController : MonoBehaviour {
         float prevY = position.y;
 
         position.y += (Random.Range(-100, 100) / 100f);
-
-        Debug.Log("Before: " + prevY + " after: " + position.y);
 
         var enemy = GameObject.Instantiate(enemyToInstantiate, position, Quaternion.Euler(Vector3.zero)) as GameObject;
         enemyList.Add(enemy);
