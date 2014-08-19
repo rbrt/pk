@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour {
     protected bool punching = false;
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
-    protected Vector3 destinationPosition;
+
+    [SerializeField] protected Vector3 destinationPosition;
 
     public void SetFightSequence(FightSequence sequence){
         fightSequence = sequence;
@@ -31,16 +32,10 @@ public class Enemy : MonoBehaviour {
         set { destinationPosition = value; }
     }
 
-    static GameObject itsme;
-
 	void Start () {
         player = GameObject.Find("PlayerCharacter").GetComponent<PlayerController>();
         enemyState = EnemyStates.Moving;
         animateDude = GetComponentInChildren<AnimateDude>();
-
-        if (itsme == null){
-            itsme = gameObject;
-        }
 
         behaviourCoroutine = this.StartSafeCoroutine(Primer());
 	}
@@ -64,7 +59,7 @@ public class Enemy : MonoBehaviour {
                 if (Vector3.Distance(transform.position, destinationPosition) < distanceThreshold){
                     // Do stufffff
                 }
-                
+
                 // Move until reaching destination
 
                 /*

@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 260573814}
+  - 65: {fileID: 260573815}
   m_Layer: 0
   m_Name: TopLeftFightPosition
   m_TagString: Untagged
@@ -189,11 +190,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 260573813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.731570005, y: 0, z: 0}
+  m_LocalPosition: {x: -.699999988, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 913512234}
   m_RootOrder: 1
+--- !u!65 &260573815
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260573813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &671342926
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +267,7 @@ MonoBehaviour:
   punchRange: .5
   afterPunchDelay: .300000012
   damageDuration: .200000003
+  destinationPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &671342930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +293,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 703451663}
+  - 65: {fileID: 703451664}
   m_Layer: 0
   m_Name: BottomLeftFightPosition
   m_TagString: Untagged
@@ -293,11 +308,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 703451662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.863659978, y: -.9551, z: 0}
+  m_LocalPosition: {x: -.699999988, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 913512234}
   m_RootOrder: 3
+--- !u!65 &703451664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 703451662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &856776082
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d49715514504f5ab9c99dce77c95e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1280485264}
   enemyList: []
   fightSequence: {fileID: 1819704545}
   leftSpawnLocation: {fileID: 966611707}
@@ -436,6 +464,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1166383915}
+  - 65: {fileID: 1166383916}
   m_Layer: 0
   m_Name: BottomRightFightPosition
   m_TagString: Untagged
@@ -450,11 +479,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166383914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .690919995, y: -.924619973, z: 0}
+  m_LocalPosition: {x: .699999988, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 913512234}
   m_RootOrder: 2
+--- !u!65 &1166383916
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1166383914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1280485264
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +700,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1723698278}
+  - 65: {fileID: 1723698279}
   m_Layer: 0
   m_Name: TopRightFightPosition
   m_TagString: Untagged
@@ -673,11 +715,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723698277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .680760026, y: 0, z: 0}
+  m_LocalPosition: {x: .699999988, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 913512234}
   m_RootOrder: 0
+--- !u!65 &1723698279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1723698277}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1819704544
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,8 +764,8 @@ MonoBehaviour:
   - {fileID: 260573814}
   - {fileID: 1166383915}
   - {fileID: 703451663}
-  enemies: []
   enemyController: {fileID: 1004536423}
+  enemySpawn: {fileID: 123705594}
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0

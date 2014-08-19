@@ -14,14 +14,14 @@ public class EnemyController : MonoBehaviour {
     [SerializeField] protected Transform leftSpawnLocation,
                                          rightSpawnLocation;
 
+
     protected float idleXCoord = 1.9f,
-                    idleYCoord = .5f;
+                    idleYCoord = .9f;
 
     public List<GameObject> EnemyList {
         get { return enemyList; }
     }
 
-    // Returns an available, idle enemy to be used to join the fight
     public GameObject GetIdleEnemy(List<GameObject> currentEnemies){
         var possibleEnemies = enemyList.Where(x => !currentEnemies.Contains(x)).ToList();
 
@@ -34,8 +34,8 @@ public class EnemyController : MonoBehaviour {
 
     Vector3 FindIdlePosition(){
         var position = player.transform.position;
-        position.x += Random.Range(-idleXCoord, idleXCoord);
-        position.y += Random.Range(-idleYCoord, idleYCoord);
+        position.x += (Random.Range((idleXCoord * .8f), idleXCoord)) * (Random.Range(0,100) > 50 ? -1 : 1);
+        position.y += (Random.Range(0, idleYCoord)) * (Random.Range(0,100) > 50 ? -1 : 1);
         return position;
     }
 

@@ -6,8 +6,8 @@ using System.Linq;
 public class FightSequence : MonoBehaviour {
 
     [SerializeField] protected Transform[] fightPositions;
-    [SerializeField] protected GameObject[] enemies;
     [SerializeField] protected EnemyController enemyController;
+    [SerializeField] protected EnemySpawn enemySpawn;
 
     protected Transform playerTransform;
     protected FightingEnemy[] fightingEnemies;
@@ -28,9 +28,14 @@ public class FightSequence : MonoBehaviour {
 	}
 
 	void Update () {
-        if (enemyController.GetIdleEnemy(enemies.ToList()) != null){
+        if (enemySpawn.DoneSpawning && enemyController.GetIdleEnemy(GetFightingEnemies()) != null){
             while (fightingEnemies.Any(x => x == null)){
-                var enemy = enemyController.GetIdleEnemy(enemies.ToList());
+                var enemy = enemyController.GetIdleEnemy(GetFightingEnemies());
+
+                if (enemy == null){
+                    Debug.Break();
+                }
+
                 var targetPosition = occupiedPositions.Keys.ToList().First(x => occupiedPositions[x] == false);
 
                 int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
@@ -41,6 +46,10 @@ public class FightSequence : MonoBehaviour {
             }
         }
 	}
+
+    List<GameObject> GetFightingEnemies(){
+        return (from enemy in fightingEnemies where enemy != null select enemy.Enemy).ToList();
+    }
 
     public void HandleEnemyDeath(GameObject enemyThatDied){
         int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x.Enemy == enemyThatDied));
@@ -87,8 +96,6 @@ public class FightingEnemy{
         targetPosition = offset;
         this.enemy = enemy;
         assigned = true;
-
-        Debug.Log("Set to use " + enemy.name);
     }
 
 }

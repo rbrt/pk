@@ -10,6 +10,12 @@ public class EnemySpawn : MonoBehaviour {
 
     [SerializeField] protected EnemyController enemyController;
 
+    protected bool doneSpawning;
+
+    public bool DoneSpawning {
+        get { return doneSpawning; }
+    }
+
     void Start(){
         enemiesLeftToSpawn = enemiesToSpawn;
 
@@ -19,11 +25,15 @@ public class EnemySpawn : MonoBehaviour {
     IEnumerator GenerateEnemies(){
         float spawnTime = .2f;
 
+        doneSpawning = false;
+        
         for (int i = 0; i < enemiesToSpawn; i++){
             SpawnEnemy(enemyPrefab);
 
             yield return new WaitForSeconds(spawnTime);
         }
+
+        doneSpawning = true;
     }
 
     // For now defualt to spawning enemie on right side of screen
