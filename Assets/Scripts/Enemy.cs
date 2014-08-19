@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour {
                     enemyState=EnemyStates.Attacking;
                 }
                 else{
+                    /*
                     // move down
                     if (player.transform.position.y < pos.y){
                         pos.y -= vMoveSpeed;
@@ -56,6 +57,8 @@ public class Enemy : MonoBehaviour {
                     else if (player.transform.position.y > pos.y){
                         pos.y += vMoveSpeed;
                     }
+                    */
+                    
                     // move left
                     if (player.transform.position.x < pos.x){
                         pos.x -= hMoveSpeed;
