@@ -28,14 +28,13 @@ public class FightSequence : MonoBehaviour {
 	}
 
 	void Update () {
+        BringIdleEnemiesInToTheFight();
+	}
+
+    void BringIdleEnemiesInToTheFight(){
         if (enemySpawn.DoneSpawning && enemyController.GetIdleEnemy(GetFightingEnemies()) != null){
             while (fightingEnemies.Any(x => x == null)){
                 var enemy = enemyController.GetIdleEnemy(GetFightingEnemies());
-
-                if (enemy == null){
-                    Debug.Break();
-                }
-
                 var targetPosition = occupiedPositions.Keys.ToList().First(x => occupiedPositions[x] == false);
 
                 int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
@@ -45,7 +44,7 @@ public class FightSequence : MonoBehaviour {
                 enemy.GetComponent<Enemy>().Destination = targetPosition.position;
             }
         }
-	}
+    }
 
     List<GameObject> GetFightingEnemies(){
         return (from enemy in fightingEnemies where enemy != null select enemy.Enemy).ToList();
