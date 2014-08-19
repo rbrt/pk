@@ -33,8 +33,6 @@ public class FightSequence : MonoBehaviour {
                 var enemy = enemyController.GetIdleEnemy(enemies.ToList());
                 var targetPosition = occupiedPositions.Keys.ToList().First(x => occupiedPositions[x] == false);
 
-                Debug.Log("Got " + targetPosition, targetPosition);
-
                 int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
                 fightingEnemies[index] = new FightingEnemy(playerTransform, ref targetPosition, enemy);
                 occupiedPositions[targetPosition] = true;
@@ -43,6 +41,13 @@ public class FightSequence : MonoBehaviour {
             }
         }
 	}
+
+    public void HandleEnemyDeath(GameObject enemyThatDied){
+        int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x.Enemy == enemyThatDied));
+        var transform = fightingEnemies[index].TargetPosition;
+        occupiedPositions[transform] = false;
+        fightingEnemies[index] = null;
+    }
 }
 
 // Encapsulate enemy positioning and behaviours
@@ -57,6 +62,14 @@ public class FightingEnemy{
 
     public bool Assigned {
         get { return assigned; }
+    }
+
+    public GameObject Enemy{
+        get { return enemy; }
+    }
+
+    public Transform TargetPosition{
+        get { return targetPosition; }
     }
 
     public SafeCoroutine MovementCoroutine{

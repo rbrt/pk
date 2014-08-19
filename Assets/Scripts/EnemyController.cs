@@ -6,6 +6,7 @@ using System.Linq;
 public class EnemyController : MonoBehaviour {
 
     [SerializeField] protected List<GameObject> enemyList;
+    [SerializeField] protected FightSequence fightSequence;
     [SerializeField] protected Transform leftSpawnLocation,
                                          rightSpawnLocation;
 
@@ -41,12 +42,11 @@ public class EnemyController : MonoBehaviour {
         else if (spawnBehaviour == SpawnBehaviour.Left){
             position = leftSpawnLocation.position;
         }
-
-        float prevY = position.y;
-
+        
         position.y += (Random.Range(-100, 100) / 100f);
 
         var enemy = GameObject.Instantiate(enemyToInstantiate, position, Quaternion.Euler(Vector3.zero)) as GameObject;
+        enemy.GetComponent<Enemy>().SetFightSequence(fightSequence);
         enemyList.Add(enemy);
     }
 }

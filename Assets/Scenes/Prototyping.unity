@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList: []
+  fightSequence: {fileID: 1819704545}
   leftSpawnLocation: {fileID: 966611707}
   rightSpawnLocation: {fileID: 1917395194}
 --- !u!4 &1004536424

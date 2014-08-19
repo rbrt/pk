@@ -21,7 +21,13 @@ public class Enemy : MonoBehaviour {
 
     protected bool punching = false;
 
-    SafeCoroutine behaviourCoroutine;
+    protected SafeCoroutine behaviourCoroutine;
+
+    protected FightSequence fightSequence;
+
+    public void SetFightSequence(FightSequence sequence){
+        fightSequence = sequence;
+    }
 
 	void Start () {
         player = GameObject.Find("PlayerCharacter").GetComponent<PlayerController>();
@@ -58,7 +64,7 @@ public class Enemy : MonoBehaviour {
                         pos.y += vMoveSpeed;
                     }
                     */
-                    
+
                     // move left
                     if (player.transform.position.x < pos.x){
                         pos.x -= hMoveSpeed;
@@ -132,6 +138,7 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Dead(){
         animateDude.Dead();
+        fightSequence.HandleEnemyDeath(gameObject);
         yield break;
     }
 
