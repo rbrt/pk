@@ -6,8 +6,10 @@ public class Enemy : MonoBehaviour {
     protected PlayerController player;
 
     protected enum EnemyStates {Moving, Attacking, Damaged, Dead, Idle};
+    public enum EnemyType {GreenHairPunk, Skinhead};
     protected EnemyStates enemyState;
 
+    [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected float hMoveSpeed = .03f,
                                      vMoveSpeed = .02f,
                                      punchDuration = .2f,
@@ -20,11 +22,17 @@ public class Enemy : MonoBehaviour {
     protected bool punching = false;
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
+    protected bool fightingPlayer;
+    protected float destinationThreshold = .2f;
 
     [SerializeField] protected Vector3 destinationPosition;
 
     public void SetFightSequence(FightSequence sequence){
         fightSequence = sequence;
+    }
+
+    public EnemyType TypeOfEnemy{
+        get { return enemyType; }
     }
 
     public Vector3 Destination{
@@ -34,7 +42,7 @@ public class Enemy : MonoBehaviour {
 
 	void Start () {
         player = GameObject.Find("PlayerCharacter").GetComponent<PlayerController>();
-        enemyState = EnemyStates.Moving;
+        enemyState = EnemyStates.Idle;
         animateDude = GetComponentInChildren<AnimateDude>();
 
         behaviourCoroutine = this.StartSafeCoroutine(Primer());
@@ -47,28 +55,19 @@ public class Enemy : MonoBehaviour {
 
             if (health <= 0 && enemyState != EnemyStates.Dead){
                 enemyState = EnemyStates.Dead;
-                behaviourCoroutine.Stop();
+                if (behaviourCoroutine.IsPaused || behaviourCoroutine.IsRunning){
+                    behaviourCoroutine.Stop();
+                }
+                
                 this.StartSafeCoroutine(Dead());
             }
 
             if (enemyState == EnemyStates.Moving){
-                float distanceThreshold = .1f;
-
-                pos = Vector3.MoveTowards(transform.position, destinationPosition, .05f);
-
-                if (Vector3.Distance(transform.position, destinationPosition) < distanceThreshold){
-                    // Do stufffff
-                }
-
-                // Move until reaching destination
-
-                /*
                 // Check if close enough
                 if (InRangeForAttack()){
-                    enemyState=EnemyStates.Attacking;
+                    enemyState = EnemyStates.Attacking;
                 }
                 else{
-
                     // move down
                     if (player.transform.position.y < pos.y){
                         pos.y -= vMoveSpeed;
@@ -77,7 +76,6 @@ public class Enemy : MonoBehaviour {
                     else if (player.transform.position.y > pos.y){
                         pos.y += vMoveSpeed;
                     }
-
 
                     // move left
                     if (player.transform.position.x < pos.x){
@@ -88,7 +86,6 @@ public class Enemy : MonoBehaviour {
                         pos.x += hMoveSpeed;
                     }
                 }
-                */
             }
             else if (enemyState == EnemyStates.Attacking){
                 if (InRangeForAttack() && !punching){
@@ -103,7 +100,12 @@ public class Enemy : MonoBehaviour {
 
             }
             else if (enemyState == EnemyStates.Idle){
-
+                if (!InRangeOfIdlePosition()){
+                    pos = Vector3.MoveTowards(transform.position, destinationPosition, .025f);
+                }
+                else{
+                    // Be idle
+                }
             }
             else if (enemyState == EnemyStates.Dead){
 
@@ -116,6 +118,10 @@ public class Enemy : MonoBehaviour {
             transform.localPosition = pos;
         }
 	}
+
+    bool InRangeOfIdlePosition(){
+        return Vector3.Distance(transform.position, destinationPosition) < destinationThreshold;
+    }
 
     bool InRangeForAttack(){
         return Vector3.Distance(transform.position, player.transform.position) < punchRange;
@@ -146,6 +152,8 @@ public class Enemy : MonoBehaviour {
 
         health--;
 
+        Debug.Log(health);
+
         yield return new WaitForSeconds(damageDuration);
 
         if (health > 0){
@@ -160,7 +168,12 @@ public class Enemy : MonoBehaviour {
         yield break;
     }
 
+    public void AttackPlayer(){
+        enemyState = EnemyStates.Moving;
+    }
+
     public void TakeDamage(){
+        Debug.Log("ahhh");
         if (enemyState != EnemyStates.Dead){
             behaviourCoroutine = this.StartSafeCoroutine(Damaged());
         }

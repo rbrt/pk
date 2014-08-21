@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class PlayerController : MonoBehaviour {
@@ -18,9 +19,6 @@ public class PlayerController : MonoBehaviour {
                     damageDuration = .2f;
 
     protected AnimateDude animateDude;
-
-    protected string[] enemyTypes = {"Skinhead",
-                                     "Enemy"};
 
     void Start(){
         animateDude = GetComponentInChildren<AnimateDude>();
@@ -99,6 +97,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    List<Enemy.EnemyType> GetEnemyTypes(){
+        return System.Enum.GetValues(typeof(Enemy.EnemyType)).Cast<Enemy.EnemyType>().ToList();
+    }
+
     IEnumerator Punch(){
         punch = true;
         animateDude.Punch();
@@ -108,8 +110,15 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(transform.position, (transform.right * punchRange), Color.green, 2f);
 
         if (Physics.Raycast(transform.position, transform.right, out info, punchRange)){
-            if (enemyTypes.Any(x => info.collider.name.Equals(x))){
+            if (GetEnemyTypes().Any(x => {
+                    Enemy enemy = info.collider.GetComponent<Enemy>();
+                    return enemy != null && enemy.TypeOfEnemy == x;
+                })
+            ){
                 info.collider.GetComponent<Enemy>().TakeDamage();
+            }
+            else{
+                Debug.Log(info.collider.name);
             }
         }
 

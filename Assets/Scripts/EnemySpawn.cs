@@ -26,7 +26,7 @@ public class EnemySpawn : MonoBehaviour {
         float spawnTime = .2f;
 
         doneSpawning = false;
-        
+
         for (int i = 0; i < enemiesToSpawn; i++){
             SpawnEnemy(enemyPrefab);
 

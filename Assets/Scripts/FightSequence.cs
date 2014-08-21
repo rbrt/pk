@@ -10,8 +10,8 @@ public class FightSequence : MonoBehaviour {
     [SerializeField] protected EnemySpawn enemySpawn;
 
     protected Transform playerTransform;
-    protected FightingEnemy[] fightingEnemies;
-    protected Dictionary<Transform, bool> occupiedPositions;
+    protected GameObject[] fightingEnemies;
+    protected int simulataneousAttackingEnemies = 4;
 
 	void Start () {
         var player = GameObject.Find("PlayerCharacter");
@@ -22,9 +22,7 @@ public class FightSequence : MonoBehaviour {
             playerTransform = player.transform;
         }
 
-        fightingEnemies = new FightingEnemy[fightPositions.Length];
-        occupiedPositions = new Dictionary<Transform, bool>();
-        fightPositions.ToList().ForEach(x => occupiedPositions[x] = false);
+        fightingEnemies = new GameObject[simulataneousAttackingEnemies];
 	}
 
 	void Update () {
@@ -32,69 +30,22 @@ public class FightSequence : MonoBehaviour {
 	}
 
     void BringIdleEnemiesInToTheFight(){
-        if (enemySpawn.DoneSpawning && enemyController.GetIdleEnemy(GetFightingEnemies()) != null){
+        if (enemySpawn.DoneSpawning && enemyController.GetIdleEnemy(fightingEnemies.ToList()) != null){
             while (fightingEnemies.Any(x => x == null)){
-                var enemy = enemyController.GetIdleEnemy(GetFightingEnemies());
-                var targetPosition = occupiedPositions.Keys.ToList().First(x => occupiedPositions[x] == false);
-
+                var enemy = enemyController.GetIdleEnemy(fightingEnemies.ToList());
                 int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
-                fightingEnemies[index] = new FightingEnemy(playerTransform, ref targetPosition, enemy);
-                occupiedPositions[targetPosition] = true;
+                fightingEnemies[index] = enemy;
 
-                enemy.GetComponent<Enemy>().Destination = targetPosition.position;
+                enemy.GetComponent<Enemy>().AttackPlayer();
             }
         }
     }
 
-    List<GameObject> GetFightingEnemies(){
-        return (from enemy in fightingEnemies where enemy != null select enemy.Enemy).ToList();
-    }
-
     public void HandleEnemyDeath(GameObject enemyThatDied){
-        int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x.Enemy == enemyThatDied));
-        var transform = fightingEnemies[index].TargetPosition;
-        occupiedPositions[transform] = false;
-        fightingEnemies[index] = null;
+        var enemy = fightingEnemies.FirstOrDefault(x => x == enemyThatDied);
+        if (enemy != null){
+            int index = fightingEnemies.ToList().IndexOf(enemy);
+            fightingEnemies[index] = null;
+        }
     }
-}
-
-// Encapsulate enemy positioning and behaviours
-public class FightingEnemy{
-    Transform playerTransform;
-    Transform targetPosition;
-    GameObject enemy;
-    bool assigned = false;
-
-    SafeCoroutine movementCoroutine,
-                  actionCoroutine;
-
-    public bool Assigned {
-        get { return assigned; }
-    }
-
-    public GameObject Enemy{
-        get { return enemy; }
-    }
-
-    public Transform TargetPosition{
-        get { return targetPosition; }
-    }
-
-    public SafeCoroutine MovementCoroutine{
-        get { return movementCoroutine; }
-        set { movementCoroutine = value; }
-    }
-
-    public SafeCoroutine ActionCoroutine{
-        get { return actionCoroutine; }
-        set { actionCoroutine = value; }
-    }
-
-    public FightingEnemy(Transform player, ref Transform offset, GameObject enemy){
-        playerTransform = player;
-        targetPosition = offset;
-        this.enemy = enemy;
-        assigned = true;
-    }
-
 }

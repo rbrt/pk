@@ -6,14 +6,11 @@ using System.Linq;
 public class EnemyController : MonoBehaviour {
 
     // Idle range: x = (-2, 2) y = (-.5, .5)
-
-
     [SerializeField] protected GameObject player;
     [SerializeField] protected List<GameObject> enemyList;
     [SerializeField] protected FightSequence fightSequence;
     [SerializeField] protected Transform leftSpawnLocation,
                                          rightSpawnLocation;
-
 
     protected float idleXCoord = 1.9f,
                     idleYCoord = .9f;
