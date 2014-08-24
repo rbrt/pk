@@ -40,6 +40,10 @@ public class Enemy : MonoBehaviour {
         set { destinationPosition = value; }
     }
 
+    public bool IsDead{
+        get { return enemyState == EnemyStates.Dead; }
+    }
+
 	void Start () {
         player = GameObject.Find("PlayerCharacter").GetComponent<PlayerController>();
         enemyState = EnemyStates.Idle;
@@ -58,7 +62,7 @@ public class Enemy : MonoBehaviour {
                 if (behaviourCoroutine.IsPaused || behaviourCoroutine.IsRunning){
                     behaviourCoroutine.Stop();
                 }
-                
+
                 this.StartSafeCoroutine(Dead());
             }
 
@@ -111,9 +115,11 @@ public class Enemy : MonoBehaviour {
 
             }
 
-            transform.rotation = player.transform.position.x < transform.position.x ?
-                                 Quaternion.Euler(new Vector3(0, 180, 0)) :
-                                 Quaternion.Euler(Vector3.zero);
+            if (enemyState != EnemyStates.Dead){
+                transform.rotation = player.transform.position.x < transform.position.x ?
+                                     Quaternion.Euler(new Vector3(0, 180, 0)) :
+                                     Quaternion.Euler(Vector3.zero);
+            }
 
             transform.localPosition = pos;
         }
@@ -152,8 +158,6 @@ public class Enemy : MonoBehaviour {
 
         health--;
 
-        Debug.Log(health);
-
         yield return new WaitForSeconds(damageDuration);
 
         if (health > 0){
@@ -173,7 +177,6 @@ public class Enemy : MonoBehaviour {
     }
 
     public void TakeDamage(){
-        Debug.Log("ahhh");
         if (enemyState != EnemyStates.Dead){
             behaviourCoroutine = this.StartSafeCoroutine(Damaged());
         }

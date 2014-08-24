@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour {
     [SerializeField] protected Transform leftSpawnLocation,
                                          rightSpawnLocation;
 
+
+    protected int enemyCount = 0;
+
     protected float idleXCoord = 1.9f,
                     idleYCoord = .9f;
 
@@ -20,9 +23,12 @@ public class EnemyController : MonoBehaviour {
     }
 
     public GameObject GetIdleEnemy(List<GameObject> currentEnemies){
-        var possibleEnemies = enemyList.Where(x => !currentEnemies.Contains(x)).ToList();
+        var possibleEnemies = enemyList.Where(x =>
+            !currentEnemies.Contains(x) &&
+            !x.GetComponent<Enemy>().IsDead
+        ).ToList();
 
-        if (possibleEnemies.Count > 1){
+        if (possibleEnemies.Count > 0){
             return possibleEnemies[Random.Range(0, possibleEnemies.Count-1)];
         }
 
@@ -57,6 +63,7 @@ public class EnemyController : MonoBehaviour {
         position.y += (Random.Range(-100, 100) / 100f);
 
         var enemy = GameObject.Instantiate(enemyToInstantiate, position, Quaternion.Euler(Vector3.zero)) as GameObject;
+        enemy.name += enemyCount++;
         enemy.GetComponent<Enemy>().SetFightSequence(fightSequence);
         enemy.GetComponent<Enemy>().Destination = FindIdlePosition();
         enemyList.Add(enemy);
