@@ -14,7 +14,8 @@ public class Enemy : MonoBehaviour {
                                      vMoveSpeed = .02f,
                                      punchDuration = .2f,
                                      punchRange = .6f,
-                                     afterPunchDelay = .3f,
+                                     afterAttackDelay = 1.5f,
+                                     afterAttackDelayOffsetRange = .5f,
                                      damageDuration = .2f,
                                      generalMoveSpeed = .1f;
 
@@ -145,7 +146,7 @@ public class Enemy : MonoBehaviour {
 
         if (health > 0){
             animateDude.Idle();
-            yield return new WaitForSeconds(afterPunchDelay);
+            yield return new WaitForSeconds(afterAttackDelay + Random.Range(-afterAttackDelayOffsetRange, afterAttackDelayOffsetRange));
         }
         punching = false;
     }

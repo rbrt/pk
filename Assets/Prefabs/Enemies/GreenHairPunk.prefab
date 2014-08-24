@@ -102,12 +102,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf3133247f884e62978ac4258dbb25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   hMoveSpeed: .0199999996
   vMoveSpeed: .0199999996
   punchDuration: .200000003
   punchRange: .5
-  afterPunchDelay: .300000012
+  afterAttackDelay: 1
+  afterAttackDelayOffsetRange: .5
   damageDuration: .200000003
+  generalMoveSpeed: 50
+  destinationPosition: {x: 0, y: 0, z: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

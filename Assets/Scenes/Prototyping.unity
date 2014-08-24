@@ -226,8 +226,10 @@ MonoBehaviour:
   vMoveSpeed: .0199999996
   punchDuration: .200000003
   punchRange: .5
-  afterPunchDelay: .300000012
+  afterAttackDelay: 1
+  afterAttackDelayOffsetRange: .5
   damageDuration: .200000003
+  generalMoveSpeed: .100000001
   destinationPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &671342930
 MonoBehaviour:
@@ -693,5 +695,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionRange: 200
-  scalingValue: .5
+  scalingValue: .449999988
   drawPositionVectors: 1
