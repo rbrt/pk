@@ -168,7 +168,13 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Dead(){
         animateDude.Dead();
-        fightSequence.HandleEnemyDeath(gameObject);
+
+        if (fightSequence){
+            fightSequence.HandleEnemyDeath(gameObject);
+        }
+        else{
+            Debug.Log(gameObject.name + " has no associated FightSequence", gameObject);
+        }
         yield break;
     }
 
