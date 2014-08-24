@@ -5,9 +5,9 @@ using System.Linq;
 
 public class FightSequence : MonoBehaviour {
 
-    [SerializeField] protected Transform[] fightPositions;
     [SerializeField] protected EnemyController enemyController;
     [SerializeField] protected EnemySpawn enemySpawn;
+    [SerializeField] protected FindFightPositions findFightPositions;
 
     protected Transform playerTransform;
     protected GameObject[] fightingEnemies;
@@ -27,6 +27,14 @@ public class FightSequence : MonoBehaviour {
 
 	void Update () {
         BringIdleEnemiesInToTheFight();
+
+        var positions = findFightPositions.GetEnemyPositions(fightingEnemies);
+
+        for (int i = 0; i < fightingEnemies.Length; i++){
+            if (fightingEnemies[i] != null){
+                fightingEnemies[i].GetComponent<Enemy>().Destination = positions[i];
+            }
+        }
 	}
 
     void BringIdleEnemiesInToTheFight(){

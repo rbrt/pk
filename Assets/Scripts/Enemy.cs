@@ -13,9 +13,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] protected float hMoveSpeed = .03f,
                                      vMoveSpeed = .02f,
                                      punchDuration = .2f,
-                                     punchRange = .5f,
+                                     punchRange = .6f,
                                      afterPunchDelay = .3f,
-                                     damageDuration = .2f;
+                                     damageDuration = .2f,
+                                     generalMoveSpeed = .1f;
 
     protected AnimateDude animateDude;
     protected int health = 5;
@@ -23,7 +24,7 @@ public class Enemy : MonoBehaviour {
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
     protected bool fightingPlayer;
-    protected float destinationThreshold = .2f;
+    protected float destinationThreshold = .05f;
 
     [SerializeField] protected Vector3 destinationPosition;
 
@@ -68,25 +69,23 @@ public class Enemy : MonoBehaviour {
 
             if (enemyState == EnemyStates.Moving){
                 // Check if close enough
-                if (InRangeForAttack()){
+                if (InRangeOfDestinationPosition() && InRangeForAttack()){
                     enemyState = EnemyStates.Attacking;
                 }
                 else{
-                    // move down
-                    if (player.transform.position.y < pos.y){
+                    // Move towards destination
+
+                    if (destinationPosition.y <= pos.y){
                         pos.y -= vMoveSpeed;
                     }
-                    // move up
-                    else if (player.transform.position.y > pos.y){
+                    else if (destinationPosition.y > pos.y){
                         pos.y += vMoveSpeed;
                     }
 
-                    // move left
-                    if (player.transform.position.x < pos.x){
+                    if (destinationPosition.x <= pos.x){
                         pos.x -= hMoveSpeed;
                     }
-                    // move right
-                    else if (player.transform.position.x > pos.x){
+                    else if (destinationPosition.x > pos.x){
                         pos.x += hMoveSpeed;
                     }
                 }
@@ -104,7 +103,7 @@ public class Enemy : MonoBehaviour {
 
             }
             else if (enemyState == EnemyStates.Idle){
-                if (!InRangeOfIdlePosition()){
+                if (!InRangeOfDestinationPosition()){
                     pos = Vector3.MoveTowards(transform.position, destinationPosition, .025f);
                 }
                 else{
@@ -121,11 +120,11 @@ public class Enemy : MonoBehaviour {
                                      Quaternion.Euler(Vector3.zero);
             }
 
-            transform.localPosition = pos;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, pos, Time.deltaTime * generalMoveSpeed);
         }
 	}
 
-    bool InRangeOfIdlePosition(){
+    bool InRangeOfDestinationPosition(){
         return Vector3.Distance(transform.position, destinationPosition) < destinationThreshold;
     }
 

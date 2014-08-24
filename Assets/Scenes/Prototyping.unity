@@ -572,13 +572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d2ea956b0894016ac59cc95a38e3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fightPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   enemyController: {fileID: 1004536423}
   enemySpawn: {fileID: 123705594}
+  findFightPositions: {fileID: 2128797728}
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0
@@ -680,7 +676,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2128797726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0174490009, y: -.30261001, z: .00495720003}
+  m_LocalPosition: {x: .0174490009, y: -.041356001, z: .00495720003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1280485265}
@@ -696,5 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad292d23664f840408b5434e68b4d1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionRange: 150
-  scalingValue: 1
+  positionRange: 200
+  scalingValue: .5
+  drawPositionVectors: 1

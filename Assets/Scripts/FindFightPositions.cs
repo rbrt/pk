@@ -7,8 +7,26 @@ public class FindFightPositions : MonoBehaviour {
 
     [SerializeField] int positionRange;
     [SerializeField] float scalingValue;
+    [SerializeField] bool drawPositionVectors;
 
-    public List<Vector3> GetEnemyPositions(int enemyCount){
+
+    public List<Vector3> GetEnemyPositions(GameObject[] enemies){
+        if (enemies.Length == 1){
+            List<Vector3> pos = new List<Vector3>();
+            if (enemies[0].transform.position.x <= transform.position.x){
+                pos.Add(transform.position+ Vector3.right * -scalingValue);
+            }
+            else{
+                pos.Add(transform.position + Vector3.right * scalingValue);
+            }
+            return pos;
+        }
+        else{
+            return GeneratePositions(enemies.Length);
+        }
+    }
+
+    List<Vector3> GeneratePositions(int enemyCount){
         float offset = GetOffsetValue(enemyCount);
         float angle = 0 - (positionRange / enemyCount);
 
@@ -30,23 +48,24 @@ public class FindFightPositions : MonoBehaviour {
             }
         }
 
+        if (drawPositionVectors){
+            enemyPositions.ForEach(pos => Debug.DrawLine(transform.position, pos, Color.red));
+        }
+
         return enemyPositions;
     }
 
     void Update(){
-        GetEnemyPositions(8).ForEach(pos => Debug.DrawLine(transform.position, pos, Color.red));
+        //GetEnemyPositions(1);
     }
 
     float GetOffsetValue(int enemyCount){
-        if (enemyCount > 8 || enemyCount < 0){
+        if (enemyCount > 8 || enemyCount < 1){
             Debug.LogError("More than 8 enemies or less than 1 enemy not supported");
             return -2;
         }
         else{
-            if (enemyCount == 1){
-                return -1;
-            }
-            else if (enemyCount == 2){
+            if (enemyCount == 2){
                 return .05f;
             }
             else if (enemyCount < 5){
