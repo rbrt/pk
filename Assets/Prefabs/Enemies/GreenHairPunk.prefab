@@ -79,11 +79,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bddd1dcb90aad48238d5ed27851bd207, type: 3}
+  m_Script: {fileID: 11500000, guid: c72e92cc7e58f4e8cbe424d575bd4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idleSprites:
-  - {fileID: 21300000, guid: 1906e1be67d774d05b0f6b89766ff3e5, type: 3}
+  - {fileID: 21300000, guid: 8b78b578ce0de4dab88a65a4e31f2ac5, type: 3}
+  - {fileID: 21300000, guid: cd93d5df98f7947a0b5846948c1ec362, type: 3}
+  - {fileID: 21300000, guid: bd1ef112bde1741eeba11c91ef3f707c, type: 3}
+  - {fileID: 21300000, guid: cd93d5df98f7947a0b5846948c1ec362, type: 3}
   punchSprites:
   - {fileID: 21300000, guid: fc3f612aa43e64a71bb3c25f03f092b2, type: 3}
   - {fileID: 21300000, guid: feeb38873fdfd4bd3bdc710a74233dfc, type: 3}
@@ -91,6 +94,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a983a7e14ecb940a0aefadc9c0faf5bf, type: 3}
   deadSprites:
   - {fileID: 21300000, guid: 47f3a7bd550984a1992fd743809fc0e0, type: 3}
+  movementSprites:
+  - {fileID: 21300000, guid: 1906e1be67d774d05b0f6b89766ff3e5, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

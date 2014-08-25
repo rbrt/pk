@@ -8,10 +8,10 @@ public class FightSequence : MonoBehaviour {
     [SerializeField] protected EnemyController enemyController;
     [SerializeField] protected EnemySpawn enemySpawn;
     [SerializeField] protected FindFightPositions findFightPositions;
+    [SerializeField] protected int simulataneousAttackingEnemies;
 
     protected Transform playerTransform;
     protected GameObject[] fightingEnemies;
-    protected int simulataneousAttackingEnemies = 4;
 
 	void Start () {
         var player = GameObject.Find("PlayerCharacter");
@@ -44,10 +44,14 @@ public class FightSequence : MonoBehaviour {
             if(enemyController.GetIdleEnemy(fightingEnemies.ToList()) != null){
                 while (fightingEnemies.Any(x => x == null)){
                     var enemy = enemyController.GetIdleEnemy(fightingEnemies.ToList());
-                    int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
-                    fightingEnemies[index] = enemy;
-
-                    enemy.GetComponent<Enemy>().AttackPlayer();
+                    if (enemy != null){
+                        int index = fightingEnemies.ToList().IndexOf(fightingEnemies.First(x => x == null));
+                        fightingEnemies[index] = enemy;
+                        enemy.GetComponent<Enemy>().AttackPlayer();
+                    }
+                    else {
+                        break;
+                    }
                 }
             }
             else{
