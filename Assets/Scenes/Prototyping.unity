@@ -581,6 +581,7 @@ MonoBehaviour:
   enemyController: {fileID: 1004536423}
   enemySpawn: {fileID: 123705594}
   findFightPositions: {fileID: 2128797728}
+  simulataneousAttackingEnemies: 8
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0

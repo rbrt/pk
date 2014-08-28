@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
                     punchRange = .5f,
                     damageDuration = .2f;
 
+    protected int simultaneousEnemiesToAttack = 3;
+
     protected AnimateDude animateDude;
 
     void Start(){
@@ -101,24 +103,24 @@ public class PlayerController : MonoBehaviour {
         return System.Enum.GetValues(typeof(Enemy.EnemyType)).Cast<Enemy.EnemyType>().ToList();
     }
 
+    bool ColliderIsEnemy(Collider collider){
+        return  GetEnemyTypes().Any(x => {
+                    Enemy enemy = collider.GetComponent<Enemy>();
+                    return enemy != null && enemy.TypeOfEnemy == x;
+                });
+    }
+
     IEnumerator Punch(){
         punch = true;
         animateDude.Punch();
 
-        RaycastHit info;
-
         Debug.DrawRay(transform.position, (transform.right * punchRange), Color.green, 2f);
 
-        if (Physics.Raycast(transform.position, transform.right, out info, punchRange)){
-            if (GetEnemyTypes().Any(x => {
-                    Enemy enemy = info.collider.GetComponent<Enemy>();
-                    return enemy != null && enemy.TypeOfEnemy == x;
-                })
-            ){
-                info.collider.GetComponent<Enemy>().TakeDamage();
-            }
-            else{
-                Debug.Log(info.collider.name);
+        var hits = Physics.RaycastAll(transform.position, transform.right, punchRange).Where(x => ColliderIsEnemy(x.collider)).ToList();
+
+        if (hits.Count() > 0){
+            for (int i = 0; i < Mathf.Min(simultaneousEnemiesToAttack, hits.Count()); i++){
+                hits[i].collider.GetComponent<Enemy>().TakeDamage();
             }
         }
 
