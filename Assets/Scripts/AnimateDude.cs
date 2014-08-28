@@ -6,7 +6,8 @@ public class AnimateDude : MonoBehaviour {
     [SerializeField] protected Sprite[] idleSprites,
                                         punchSprites,
                                         damageSprites,
-                                        deadSprites;
+                                        deadSprites,
+                                        blockSprites;
 
     protected SpriteRenderer spriteRenderer;
 
@@ -56,5 +57,10 @@ public class AnimateDude : MonoBehaviour {
     public void Dead(){
         CancelCurrentAnimation();
         animationCoroutine = this.StartSafeCoroutine(Animate(deadSprites));
+    }
+
+    public void Block(){
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(blockSprites));
     }
 }

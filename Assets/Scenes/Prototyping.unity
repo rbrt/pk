@@ -254,6 +254,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d6a51d3e020164329a330116a9f1b5ad, type: 3}
   deadSprites:
   - {fileID: 21300000, guid: 48a68e7e385da4db9af53591eaaba688, type: 3}
+  blockSprites: []
 --- !u!1 &856776082
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +406,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bab06a5edfc69419da272e20c8276b60, type: 3}
   deadSprites:
   - {fileID: 21300000, guid: a30c342d8716344998fc083b3bf44f0f, type: 3}
+  blockSprites:
+  - {fileID: 21300000, guid: 40b09bc96ea154def89d4f400f3a5da1, type: 3}
 --- !u!114 &1280485267
 MonoBehaviour:
   m_ObjectHideFlags: 0

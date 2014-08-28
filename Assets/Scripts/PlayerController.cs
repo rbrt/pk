@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour {
                    moveUp,
                    moveDown,
                    punch,
-                   damaged;
+                   damaged,
+                   block;
 
     protected float hMoveSpeed = .03f,
                     vMoveSpeed = .02f,
@@ -21,6 +22,10 @@ public class PlayerController : MonoBehaviour {
     protected int simultaneousEnemiesToAttack = 3;
 
     protected AnimateDude animateDude;
+
+    bool EngagedInAction{
+        get {return punch || damaged || block;}
+    }
 
     void Start(){
         animateDude = GetComponentInChildren<AnimateDude>();
@@ -49,7 +54,10 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        transform.position = pos;
+        // Only change direction when blocking but stay in place
+        if (!block){
+            transform.position = pos;
+        }
 
 	}
 
@@ -80,6 +88,15 @@ public class PlayerController : MonoBehaviour {
                 this.StartSafeCoroutine(Punch());
             }
         }
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && !EngagedInAction){
+            this.StartSafeCoroutine(Block());
+        }
+
+
+        // Help a player block if they are getting stomped
+        if (Input.GetKey(KeyCode.LeftShift) && !EngagedInAction){
+            this.StartSafeCoroutine(Block());
+        }
 
         // Up
         if (Input.GetKeyUp(KeyCode.W)){
@@ -97,6 +114,9 @@ public class PlayerController : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.D)){
             moveRight = false;
         }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)){
+            block = false;
+        }
     }
 
     List<Enemy.EnemyType> GetEnemyTypes(){
@@ -108,6 +128,17 @@ public class PlayerController : MonoBehaviour {
                     Enemy enemy = collider.GetComponent<Enemy>();
                     return enemy != null && enemy.TypeOfEnemy == x;
                 });
+    }
+
+    IEnumerator Block(){
+        block = true;
+        animateDude.Block();
+
+        while (block){
+            yield return null;
+        }
+
+        animateDude.Idle();
     }
 
     IEnumerator Punch(){
@@ -141,6 +172,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void TakeDamage(){
-        this.StartSafeCoroutine(Damaged());
+        if (!block){
+            this.StartSafeCoroutine(Damaged());
+        }
     }
 }
