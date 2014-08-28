@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour {
                                      afterAttackDelay = 1.5f,
                                      afterAttackDelayOffsetRange = .5f,
                                      damageDuration = .2f,
-                                     generalMoveSpeed = .1f;
+                                     generalMoveSpeed = .1f,
+                                     attackDamage = 2;
 
     protected AnimateEnemy animateEnemy;
     protected int health = 5;
@@ -171,7 +172,7 @@ public class Enemy : MonoBehaviour {
     IEnumerator Punch(){
         punching = true;
         animateEnemy.Punch();
-        player.TakeDamage();
+        player.TakeDamage(attackDamage);
 
         yield return new WaitForSeconds(punchDuration);
 

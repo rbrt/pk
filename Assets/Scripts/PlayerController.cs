@@ -5,6 +5,8 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
+    [SerializeField] protected HealthBar healthBar;
+
     protected bool moveLeft,
                    moveRight,
                    moveUp,
@@ -17,7 +19,8 @@ public class PlayerController : MonoBehaviour {
                     vMoveSpeed = .02f,
                     punchDuration = .3f,
                     punchRange = .5f,
-                    damageDuration = .2f;
+                    damageDuration = .2f,
+                    blockDamageReduction = .2f;
 
     protected int simultaneousEnemiesToAttack = 3;
 
@@ -171,9 +174,14 @@ public class PlayerController : MonoBehaviour {
         damaged = false;
     }
 
-    public void TakeDamage(){
+    public void TakeDamage(float damage){
         if (!block){
             this.StartSafeCoroutine(Damaged());
         }
+        else{
+            damage *= blockDamageReduction;
+        }
+
+        healthBar.DecrementHealth(damage);
     }
 }
