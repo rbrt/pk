@@ -6,6 +6,7 @@ using System.Linq;
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] protected HealthBar healthBar;
+    [SerializeField] protected AttackTree attackTree;
 
     protected bool moveLeft,
                    moveRight,
@@ -136,7 +137,10 @@ public class PlayerController : MonoBehaviour {
         // Punch
         else if (Attack1InputDown){
             if (!punch){
-                this.StartSafeCoroutine(Punch());
+                PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack1);
+                if (attack != null){
+                    this.StartSafeCoroutine(Punch());
+                }
             }
         }
 

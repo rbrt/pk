@@ -9,8 +9,6 @@ using System;
 [CustomEditor(typeof(PlayerAttack))]
 public class PlayerAttackInspector : Editor {
 
-
-
     // Would be nice if this could refresh the project view after updating the prefab, and if
     // it could update the prefab after cleaning up a deletion
 
@@ -47,7 +45,6 @@ public class PlayerAttackInspector : Editor {
         }
 
         if (update){
-            Debug.Log("updatin");
             var instance = PrefabUtility.FindPrefabRoot(playerAttack.AccessAttackTree.gameObject);
             PrefabUtility.ReplacePrefab(instance, PrefabUtility.GetPrefabParent(instance), ReplacePrefabOptions.ConnectToPrefab);
         }

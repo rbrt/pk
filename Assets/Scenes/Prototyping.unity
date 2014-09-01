@@ -258,6 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bce268d508d4df8bd81c2fc6f3f824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack1: {fileID: 1311091312}
+  attack2: {fileID: 2043937199}
 --- !u!4 &483079888
 Transform:
   m_ObjectHideFlags: 0
@@ -1093,6 +1095,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attack1
+      value: 
+      objectReference: {fileID: 1311091312}
+    - target: {fileID: 11400004, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attack2
+      value: 
+      objectReference: {fileID: 2043937199}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
   m_RootGameObject: {fileID: 483079886}

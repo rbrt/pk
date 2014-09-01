@@ -2,15 +2,11 @@
 using UnityEditor;
 using System.Collections;
 
-public class AttackTreeInspector : MonoBehaviour {
+[CustomEditor(typeof(AttackTree))]
+public class AttackTreeInspector : Editor {
 
-	// Use this for initialization
-	void Start () {
+    public override void OnInspectorGUI(){
+        base.OnInspectorGUI();
+    }
 
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

@@ -4,9 +4,10 @@ using System.Linq;
 
 public class PlayerAttack : MonoBehaviour {
 
-    [SerializeField] protected float damage;
+    [SerializeField] protected float damage,
+                                     timeToLive,
+                                     baseAttackTime;    // How long before other actions are allowed
 
-    //[HideInInspector]
     [SerializeField] protected AttackTree attackTree;
 
     protected float startTime;
@@ -26,6 +27,20 @@ public class PlayerAttack : MonoBehaviour {
 
     public NextMove[] Attack2Moves{
         get { return attack2Moves; }
+    }
+
+    public float StartTime{
+        get { return startTime; }
+        set { startTime = value; }
+    }
+
+    public float BaseAttackTime {
+        get { return baseAttackTime; }
+    }
+
+    public float Damage {
+        get { return damage; }
+        set { damage = value; }
     }
 
     public bool Clean(){
@@ -50,6 +65,30 @@ public class PlayerAttack : MonoBehaviour {
         var moves = attack2Moves.ToList();
         moves.Add(new NextMove(attack));
         attack2Moves = moves.ToArray();
+    }
+
+    public bool PassedBaseAttackTime(){
+        float elapsedTime = Time.time - startTime;
+        return elapsedTime > baseAttackTime;
+    }
+
+    public PlayerAttack GetNextAttack(AttackTree.AttackInputType attackInputType){
+        NextMove[] attackMoves;
+
+        if (attackInputType == AttackTree.AttackInputType.Attack1){
+            attackMoves = attack1Moves;
+        }
+        else if (attackInputType == AttackTree.AttackInputType.Attack2){
+            attackMoves = attack2Moves;
+        }
+
+        float elapsedTime = Time.time - startTime;
+        var attacks = attackMoves.Where(x => elapsedTime < x.CutoffTime).OrderBy(x => x.CutoffTime).ToList();
+        if (attacks.Count > 0){
+            return attacks[0].AccessNextMove;
+        }
+
+        return null;
     }
 
     public PlayerAttack(){
