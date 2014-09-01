@@ -20,7 +20,5 @@ public class HandlePlayerInputFlash : MonoBehaviour {
     public void TriggerFlash(){
         flashRenderer.material.SetFloat("_EffectTime", .1f);
         flashRenderer.material.SetFloat("_StartTime", Time.time);
-
-        Debug.Log("A flash was triggered!!!");
     }
 }

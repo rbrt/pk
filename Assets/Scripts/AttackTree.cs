@@ -101,11 +101,6 @@ public class AttackTree : MonoBehaviour {
         int count = 0;
         float beginningTime = playerAttack.StartTime;
 
-        bool logged = false,
-             logged2 = false;
-
-        Debug.Log("crotuon!");
-
         while (count < sortedMoves.Count){
 
             float elapsedTime = Time.time - beginningTime;
@@ -122,17 +117,7 @@ public class AttackTree : MonoBehaviour {
                     }
                 }
                 else{
-                    if (!logged2){
-                        Debug.Log(elapsedTime + " " + sortedMoves[count].CutoffTime);
-                        logged2 = true;
-                    }
                     count++;
-                }
-            }
-            else{
-                if (!logged){
-                    Debug.Log(elapsedTime + " " + playerAttack.BaseAttackTime);
-                    logged = true;
                 }
             }
 

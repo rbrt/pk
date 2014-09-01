@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
                                      attackDamage = 2;
 
     protected AnimateEnemy animateEnemy;
-    protected int health = 5;
+    protected float health = 5;
     [SerializeField] protected bool punching = false;
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
@@ -189,12 +189,12 @@ public class Enemy : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator Damaged(){
+    IEnumerator Damaged(float damage){
         var previousState = enemyState;
         enemyState = EnemyStates.Damaged;
         animateEnemy.Damage();
 
-        health--;
+        health -= damage;
 
         yield return new WaitForSeconds(damageDuration);
 
@@ -226,9 +226,9 @@ public class Enemy : MonoBehaviour {
         enemyState = EnemyStates.Moving;
     }
 
-    public void TakeDamage(){
+    public void TakeDamage(float damage){
         if (enemyState != EnemyStates.Dead){
-            behaviourCoroutine = this.StartSafeCoroutine(Damaged());
+            behaviourCoroutine = this.StartSafeCoroutine(Damaged(damage));
         }
     }
 }

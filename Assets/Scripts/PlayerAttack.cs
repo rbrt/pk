@@ -6,10 +6,13 @@ using System.Linq;
 public class PlayerAttack : MonoBehaviour {
 
     [SerializeField] protected float damage,
-                                     timeToLive,
-                                     baseAttackTime;    // How long before other actions are allowed
+                                     baseAttackTime,    // How long before other actions are allowed
+                                     attackRange,
+                                     attackDuration;
 
     [SerializeField] protected AttackTree attackTree;
+
+    [SerializeField] protected Sprite[] attackSprites;
 
     protected float startTime;
 
@@ -40,9 +43,21 @@ public class PlayerAttack : MonoBehaviour {
         }
     }
 
+    public float AttackRange{
+        get { return attackRange; }
+    }
+
+    public Sprite[] AttackSprites{
+        get { return attackSprites; }
+    }
+
     public float StartTime{
         get { return startTime; }
         set { startTime = value; }
+    }
+
+    public float AttackDuration{
+        get { return attackDuration; }
     }
 
     public float BaseAttackTime {

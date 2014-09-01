@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
                    moveRight,
                    moveUp,
                    moveDown,
-                   punch,
+                   attacking,
                    damaged,
                    block;
 
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     protected AnimateDude animateDude;
 
     bool EngagedInAction{
-        get {return punch || damaged || block;}
+        get {return attacking || damaged || block;}
     }
 
     void Start(){
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
         var pos = transform.position;
 
-        if (!punch && !damaged){
+        if (!attacking && !damaged){
             if (moveLeft){
                 transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
                 pos.x -= hMoveSpeed;
@@ -136,10 +136,10 @@ public class PlayerController : MonoBehaviour {
         }
         // Punch
         else if (Attack1InputDown){
-            if (!punch){
+            if (!attacking){
                 PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack1);
                 if (attack != null){
-                    this.StartSafeCoroutine(Punch());
+                    this.StartSafeCoroutine(Attack(attack));
                 }
             }
         }
@@ -193,24 +193,24 @@ public class PlayerController : MonoBehaviour {
         animateDude.Idle();
     }
 
-    IEnumerator Punch(){
-        punch = true;
-        animateDude.Punch();
+    IEnumerator Attack(PlayerAttack attack){
+        attacking = true;
+        animateDude.Attack(attack.AttackSprites);
 
-        Debug.DrawRay(transform.position, (transform.right * punchRange), Color.green, 2f);
+        Debug.DrawRay(transform.position, (transform.right * attack.AttackRange), Color.green, 2f);
 
-        var hits = Physics.RaycastAll(transform.position, transform.right, punchRange).Where(x => ColliderIsEnemy(x.collider)).ToList();
+        var hits = Physics.RaycastAll(transform.position, transform.right, attack.AttackRange).Where(x => ColliderIsEnemy(x.collider)).ToList();
 
         if (hits.Count() > 0){
             for (int i = 0; i < Mathf.Min(simultaneousEnemiesToAttack, hits.Count()); i++){
-                hits[i].collider.GetComponent<Enemy>().TakeDamage();
+                hits[i].collider.GetComponent<Enemy>().TakeDamage(attack.Damage);
             }
         }
 
-        yield return new WaitForSeconds(punchDuration);
+        yield return new WaitForSeconds(attack.AttackDuration);
 
         animateDude.Idle();
-        punch = false;
+        attacking = false;
     }
 
     IEnumerator Damaged(){

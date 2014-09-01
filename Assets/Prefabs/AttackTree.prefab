@@ -214,9 +214,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  timeToLive: 0
   baseAttackTime: 0
+  attackRange: 0
+  attackDuration: 0
   attackTree: {fileID: 11400004}
+  attackSprites: []
   attack1Moves: []
   attack2Moves: []
 --- !u!114 &11400002
@@ -230,13 +232,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  timeToLive: 0
+  damage: 1
   baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
   attackTree: {fileID: 11400004}
+  attackSprites:
+  - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
+  - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
   attack1Moves:
   - nextMove: {fileID: 11400006}
-    cutoffTime: .300000012
+    cutoffTime: .5
   attack2Moves: []
 --- !u!114 &11400004
 MonoBehaviour:
@@ -263,13 +269,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  timeToLive: 0
+  damage: 1
   baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
   attackTree: {fileID: 11400004}
+  attackSprites:
+  - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
+  - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
   attack1Moves:
   - nextMove: {fileID: 11400008}
-    cutoffTime: .300000012
+    cutoffTime: .5
   attack2Moves: []
 --- !u!114 &11400008
 MonoBehaviour:
@@ -282,15 +292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  timeToLive: 0
+  damage: 1
   baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
   attackTree: {fileID: 11400004}
+  attackSprites:
+  - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
+  - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
   attack1Moves:
   - nextMove: {fileID: 11400010}
-    cutoffTime: .300000012
+    cutoffTime: .5
   - nextMove: {fileID: 11400012}
-    cutoffTime: .800000012
+    cutoffTime: 1
   attack2Moves: []
 --- !u!114 &11400010
 MonoBehaviour:
@@ -303,10 +317,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  timeToLive: 0
-  baseAttackTime: 0
+  damage: 1
+  baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
   attackTree: {fileID: 11400004}
+  attackSprites:
+  - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
+  - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
   attack1Moves: []
   attack2Moves: []
 --- !u!114 &11400012
@@ -320,10 +338,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  timeToLive: 0
-  baseAttackTime: 0
+  damage: 1
+  baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
   attackTree: {fileID: 11400004}
+  attackSprites:
+  - {fileID: 21300000, guid: 60b6ab059a1854b66ba1f0bec66b8703, type: 3}
+  - {fileID: 21300000, guid: b5f5815b4cb9649d8bee3dc295eb02f4, type: 3}
   attack1Moves: []
   attack2Moves: []
 --- !u!1001 &100100000

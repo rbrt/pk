@@ -39,9 +39,9 @@ public class AnimateDude : MonoBehaviour {
         }
     }
 
-    public void Punch(){
+    public void Attack(Sprite[] attackSprites){
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(punchSprites));
+        animationCoroutine = this.StartSafeCoroutine(Animate(attackSprites));
     }
 
     public void Idle(){
