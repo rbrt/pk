@@ -11,8 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cf05bf5400d462bae74eab94c612ee, type: 3}
   m_Name: Jab
   m_EditorClassIdentifier: 
-  damage: 0
-  baseAttackTime: 0
-  attackRange: 0
-  attackDuration: 0
-  attackSprites: []
+  damage: 1
+  baseAttackTime: .100000001
+  attackRange: .5
+  attackDuration: .300000012
+  attackSprites:
+  - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
+  - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}

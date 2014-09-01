@@ -45,10 +45,12 @@ public class PlayerAttack : MonoBehaviour {
 
     public float AttackRange{
         get { return attackRange; }
+        set { attackRange = value; }
     }
 
     public Sprite[] AttackSprites{
         get { return attackSprites; }
+        set { attackSprites = value; }
     }
 
     public float StartTime{
@@ -58,10 +60,12 @@ public class PlayerAttack : MonoBehaviour {
 
     public float AttackDuration{
         get { return attackDuration; }
+        set { attackDuration = value; }
     }
 
     public float BaseAttackTime {
         get { return baseAttackTime; }
+        set { baseAttackTime = value; }
     }
 
     public float Damage {

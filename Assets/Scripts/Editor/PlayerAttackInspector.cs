@@ -12,6 +12,8 @@ public class PlayerAttackInspector : Editor {
     // Would be nice if this could refresh the project view after updating the prefab, and if
     // it could update the prefab after cleaning up a deletion
 
+    static bool useTemplate = false;
+
     public override void OnInspectorGUI(){
         base.DrawDefaultInspector();
         PlayerAttack playerAttack = target as PlayerAttack;
@@ -44,10 +46,55 @@ public class PlayerAttackInspector : Editor {
             update = true;
         }
 
+        GUILayout.Space(20);
+
+
+        if (useTemplate){
+            GUILayout.BeginHorizontal();
+
+            GUILayout.Label("Use Template To Set Values");
+            int selection = 0;
+            string[] templatePaths = GetAttackTemplates();
+            selection = EditorGUILayout.Popup(selection, StripPaths(templatePaths));
+
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Set With " + StripPaths(templatePaths)[selection])){
+                var template = AssetDatabase.LoadAssetAtPath(templatePaths[selection], typeof(PlayerAttackTemplate));
+                (template as PlayerAttackTemplate).SetWithTemplate(ref playerAttack);
+                useTemplate = false;
+            }
+        }
+        else{
+            if (GUILayout.Button("Use Template To Set Values")){
+                useTemplate = true;
+            }
+        }
+
         if (update){
             var instance = PrefabUtility.FindPrefabRoot(playerAttack.AccessAttackTree.gameObject);
             PrefabUtility.ReplacePrefab(instance, PrefabUtility.GetPrefabParent(instance), ReplacePrefabOptions.ConnectToPrefab);
         }
+    }
+
+    static string[] StripPaths(string[] paths){
+        return (from path in paths select path.Split('/').Last().Replace(".asset", "")).ToArray();
+    }
+
+    static string[] GetAttackTemplates(){
+        string path = "Assets/ScriptableObjects/PlayerAttacks";
+
+        var directories = Directory.GetDirectories(path);
+        List<string> filenames = new List<string>();
+
+        directories.ToList().ForEach(x => {
+            if (Directory.Exists(x)){
+                filenames.AddRange(Directory.GetFiles(x));
+            }
+        });
+
+        filenames = filenames.Where(x => !x.Contains(".meta")).ToList();
+        return filenames.ToArray();
     }
 
     static bool DrawPlayerAttacks(List<NextMove> attacks){

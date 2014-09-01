@@ -10,24 +10,12 @@ public class PlayerAttackTemplate : ScriptableObject {
 
     [SerializeField] protected Sprite[] attackSprites;
 
-    public float Damage{
-        get { return damage; }
-        set { damage = value; }
-    }
-
-    public float BaseAttackTime{
-        get { return baseAttackTime; }
-        set { baseAttackTime = value; }
-    }
-
-    public float AttackRange{
-        get { return attackRange; }
-        set { attackRange = value; }
-    }
-
-    public float AttackDuration{
-        get { return attackDuration; }
-        set { attackDuration = value; }
+    public void SetWithTemplate(ref PlayerAttack playerAttack){
+        playerAttack.Damage = damage;
+        playerAttack.BaseAttackTime = baseAttackTime;
+        playerAttack.AttackRange = attackRange;
+        playerAttack.AttackDuration = attackDuration;
+        playerAttack.AttackSprites = attackSprites;
     }
 
 }

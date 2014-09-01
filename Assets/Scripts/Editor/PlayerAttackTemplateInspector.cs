@@ -6,11 +6,8 @@ using System.Collections;
 public class PlayerAttackTemplateInspector : Editor {
 
     public override void OnInspectorGUI(){
-
         GUILayout.Label(target.name + ":", EditorStyles.boldLabel);
-
         DrawDefaultInspector();
-
     }
 
     [MenuItem("PlayerAttack/Create PlayerAttack Template")]
