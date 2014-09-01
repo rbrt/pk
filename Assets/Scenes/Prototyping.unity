@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 100002, guid: c774178e2a1d548dc91410b3c3454df9, type: 2}
-  enemiesToSpawn: 20
+  enemiesToSpawn: 10
   enemiesLeftToSpawn: 0
   enemyController: {fileID: 1004536423}
 --- !u!4 &123705595
@@ -842,7 +842,7 @@ MonoBehaviour:
   enemyController: {fileID: 1004536423}
   enemySpawn: {fileID: 123705594}
   findFightPositions: {fileID: 2128797728}
-  simulataneousAttackingEnemies: 8
+  simulataneousAttackingEnemies: 2
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0

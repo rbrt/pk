@@ -64,60 +64,105 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+    bool LeftInputDown{
+        get { return Input.GetKeyDown(KeyCode.A); }
+    }
+
+    bool RightInputDown{
+        get { return Input.GetKeyDown(KeyCode.D); }
+    }
+
+    bool UpInputDown{
+        get { return Input.GetKeyDown(KeyCode.W); }
+    }
+
+    bool DownInputDown{
+        get { return Input.GetKeyDown(KeyCode.S); }
+    }
+
+    bool Attack1InputDown{
+        get { return Input.GetKeyDown(KeyCode.Space); }
+    }
+
+    bool LeftInputUp{
+        get { return Input.GetKeyUp(KeyCode.A); }
+    }
+
+    bool RightInputUp{
+        get { return Input.GetKeyUp(KeyCode.D); }
+    }
+
+    bool UpInputUp{
+        get { return Input.GetKeyUp(KeyCode.W); }
+    }
+
+    bool DownInputUp{
+        get { return Input.GetKeyUp(KeyCode.S); }
+    }
+
+    bool Attack1InputUp{
+        get { return Input.GetKeyUp(KeyCode.Space); }
+    }
+
+    bool BlockInput {
+        get{ return Input.GetKey(KeyCode.LeftShift) && !EngagedInAction; }
+    }
+
+    bool BlockInputUp {
+        get{ return Input.GetKeyUp(KeyCode.LeftShift); }
+    }
+
     void HandleInput(){
         // Up
-        if (Input.GetKeyDown(KeyCode.W)){
+        if (UpInputDown){
             moveUp = true;
             moveDown = false;
         }
         // Left
-        else if (Input.GetKeyDown(KeyCode.A)){
+        else if (LeftInputDown){
             moveLeft = true;
             moveRight = false;
         }
         // Down
-        else if (Input.GetKeyDown(KeyCode.S)){
+        else if (DownInputDown){
             moveUp = false;
             moveDown = true;
         }
         // Right
-        else if (Input.GetKeyDown(KeyCode.D)){
+        else if (RightInputDown){
             moveLeft = false;
             moveRight = true;
         }
         // Punch
-        else if (Input.GetKeyDown(KeyCode.Space)){
+        else if (Attack1InputDown){
             if (!punch){
                 this.StartSafeCoroutine(Punch());
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && !EngagedInAction){
-            this.StartSafeCoroutine(Block());
-        }
 
 
         // Help a player block if they are getting stomped
-        if (Input.GetKey(KeyCode.LeftShift) && !EngagedInAction){
+        if (BlockInput){
             this.StartSafeCoroutine(Block());
         }
 
         // Up
-        if (Input.GetKeyUp(KeyCode.W)){
+        if (UpInputUp){
             moveUp = false;
         }
         // Left
-        else if (Input.GetKeyUp(KeyCode.A)){
+        else if (LeftInputUp){
             moveLeft = false;
         }
         // Down
-        else if (Input.GetKeyUp(KeyCode.S)){
+        else if (DownInputUp){
             moveDown = false;
         }
         // Right
-        else if (Input.GetKeyUp(KeyCode.D)){
+        else if (RightInputUp){
             moveRight = false;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift)){
+        else if (BlockInputUp){
             block = false;
         }
     }
