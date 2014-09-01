@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Base Attack2
+  m_Name: Base Attack2 - Knee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: Base Attack1
+  m_Name: Base Attack1 - Jab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 114: {fileID: 11400006}
   m_Layer: 0
-  m_Name: New Attack1Move test1
+  m_Name: Attack1 - Jab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,39 @@ GameObject:
   - 4: {fileID: 400008}
   - 114: {fileID: 11400008}
   m_Layer: 0
-  m_Name: New Attack1Move test2
+  m_Name: Attack1 - Jab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100010
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400010}
+  - 114: {fileID: 11400010}
+  m_Layer: 0
+  m_Name: Attack1 - Jab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100012
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400012}
+  - 114: {fileID: 11400012}
+  m_Layer: 0
+  m_Name: Attack1 - Cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +135,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
-  - {fileID: 400008}
   m_Father: {fileID: 400004}
   m_RootOrder: 0
 --- !u!4 &400004
@@ -113,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 103.22097, y: 317.470215, z: -97.7085571}
+  m_LocalPosition: {x: 103.118729, y: 201.307892, z: -814.273376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -129,7 +160,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -103.22097, y: -317.470215, z: 97.7085571}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 400008}
   m_Father: {fileID: 400002}
   m_RootOrder: 0
 --- !u!4 &400008
@@ -139,10 +171,36 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -103.22097, y: -317.470215, z: 97.7085571}
+  m_LocalPosition: {x: .102241516, y: 116.162323, z: 716.564819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 400010}
+  - {fileID: 400012}
+  m_Father: {fileID: 400006}
+  m_RootOrder: 0
+--- !u!4 &400010
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400002}
+  m_Father: {fileID: 400008}
+  m_RootOrder: 0
+--- !u!4 &400012
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
   m_RootOrder: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -174,13 +232,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   timeToLive: 0
-  baseAttackTime: .300000012
+  baseAttackTime: .100000001
   attackTree: {fileID: 11400004}
   attack1Moves:
   - nextMove: {fileID: 11400006}
-    cutoffTime: .699999988
-  - nextMove: {fileID: 11400008}
-    cutoffTime: 2
+    cutoffTime: .300000012
   attack2Moves: []
 --- !u!114 &11400004
 MonoBehaviour:
@@ -209,9 +265,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   timeToLive: 0
-  baseAttackTime: .200000003
+  baseAttackTime: .100000001
   attackTree: {fileID: 11400004}
-  attack1Moves: []
+  attack1Moves:
+  - nextMove: {fileID: 11400008}
+    cutoffTime: .300000012
   attack2Moves: []
 --- !u!114 &11400008
 MonoBehaviour:
@@ -226,7 +284,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   timeToLive: 0
-  baseAttackTime: .200000003
+  baseAttackTime: .100000001
+  attackTree: {fileID: 11400004}
+  attack1Moves:
+  - nextMove: {fileID: 11400010}
+    cutoffTime: .300000012
+  - nextMove: {fileID: 11400012}
+    cutoffTime: .800000012
+  attack2Moves: []
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  timeToLive: 0
+  baseAttackTime: 0
+  attackTree: {fileID: 11400004}
+  attack1Moves: []
+  attack2Moves: []
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  timeToLive: 0
+  baseAttackTime: 0
   attackTree: {fileID: 11400004}
   attack1Moves: []
   attack2Moves: []
