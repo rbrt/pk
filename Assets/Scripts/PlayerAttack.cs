@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class PlayerAttack : MonoBehaviour {
@@ -27,6 +28,16 @@ public class PlayerAttack : MonoBehaviour {
 
     public NextMove[] Attack2Moves{
         get { return attack2Moves; }
+    }
+
+    public NextMove[] AllMoves{
+        get {
+            List<NextMove> allMoves = new List<NextMove>();
+            allMoves.AddRange(attack1Moves.ToList());
+            allMoves.AddRange(attack2Moves.ToList());
+
+            return allMoves.ToArray();
+        }
     }
 
     public float StartTime{
