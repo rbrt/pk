@@ -1,6 +1,8 @@
 fileFormatVersion: 2
 guid: 4145bbfd22610409caa806a8af277e69
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: punch2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
