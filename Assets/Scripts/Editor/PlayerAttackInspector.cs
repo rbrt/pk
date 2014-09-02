@@ -64,6 +64,12 @@ public class PlayerAttackInspector : Editor {
                 (template as PlayerAttackTemplate).SetWithTemplate(ref playerAttack);
                 useTemplate = false;
             }
+
+            GUILayout.Space(20);
+
+            if (GUILayout.Button("Cancel")){
+                useTemplate = false;
+            }
         }
         else{
             if (GUILayout.Button("Use Template To Set Values")){
