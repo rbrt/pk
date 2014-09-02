@@ -13,6 +13,7 @@ public class PlayerAttackInspector : Editor {
     // it could update the prefab after cleaning up a deletion
 
     static bool useTemplate = false;
+    int selection = 0;
 
     public override void OnInspectorGUI(){
         base.DrawDefaultInspector();
@@ -53,7 +54,6 @@ public class PlayerAttackInspector : Editor {
             GUILayout.BeginHorizontal();
 
             GUILayout.Label("Use Template To Set Values");
-            int selection = 0;
             string[] templatePaths = GetAttackTemplates();
             selection = EditorGUILayout.Popup(selection, StripPaths(templatePaths));
 
