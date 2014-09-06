@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour {
     protected bool moving = false;
     protected bool idle = false;
     protected float destinationThreshold = .05f;
+    protected float attackDelayStartTime = 0;
 
     [SerializeField] protected Vector3 destinationPosition;
 
@@ -120,8 +121,8 @@ public class Enemy : MonoBehaviour {
                 if (InRangeForAttack()){
                     if (!punching){
                         CancelBehaviourCoroutine();
-                        //punching = true;
-                        //behaviourCoroutine = this.StartSafeCoroutine(Punch());
+                        punching = true;
+                        behaviourCoroutine = this.StartSafeCoroutine(Punch());
                     }
                 }
                 else{
@@ -179,9 +180,20 @@ public class Enemy : MonoBehaviour {
 
         if (health > 0){
             animateEnemy.Inactive();
-            yield return new WaitForSeconds(afterAttackDelay + Random.Range(-afterAttackDelayOffsetRange, afterAttackDelayOffsetRange));
+            yield return this.StartSafeCoroutine(
+                                WaitAfterAttack(afterAttackDelay + Random.Range(-afterAttackDelayOffsetRange, afterAttackDelayOffsetRange))
+                              );
         }
         punching = false;
+    }
+
+
+    IEnumerator WaitAfterAttack(float delay){
+        attackDelayStartTime = Time.time;
+
+        while (Time.time - attackDelayStartTime < delay){
+            yield return null;
+        }
     }
 
     IEnumerator Move(){
@@ -194,6 +206,8 @@ public class Enemy : MonoBehaviour {
         var previousState = enemyState;
         enemyState = EnemyStates.Damaged;
         animateEnemy.Damage();
+
+        attackDelayStartTime = Time.time;
 
         health -= damage;
 
