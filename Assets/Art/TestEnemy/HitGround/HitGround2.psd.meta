@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: 1906e1be67d774d05b0f6b89766ff3e5
+guid: 7d22d5a40e2c1401e816102345acd037
 TextureImporter:
   fileIDToRecycleName:
-    21300000: idle
-    21300002: Base
+    21300000: HitGround2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

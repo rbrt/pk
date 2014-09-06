@@ -13,6 +13,7 @@ public class FindFightPositions : MonoBehaviour {
     public List<Vector3> GetEnemyPositions(GameObject[] enemies){
         if (enemies.Length == 1){
             List<Vector3> pos = new List<Vector3>();
+
             if (enemies[0].transform.position.x <= transform.position.x){
                 pos.Add(transform.position+ Vector3.right * -scalingValue);
             }

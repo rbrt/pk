@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 100002, guid: c774178e2a1d548dc91410b3c3454df9, type: 2}
-  enemiesToSpawn: 1
+  enemiesToSpawn: 10
   enemiesLeftToSpawn: 0
   enemyController: {fileID: 1004536423}
 --- !u!4 &123705595
@@ -797,7 +797,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 949335447}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_LightmapIndex: 255
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 5
   baseAttackTime: .100000001
   attackRange: .5
   attackDuration: .300000012
@@ -1279,6 +1279,10 @@ Prefab:
       propertyPath: attackEffects.Array.data[0]
       value: 
       objectReference: {fileID: 100612207}
+    - target: {fileID: 11400012, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
   m_RootGameObject: {fileID: 119614198}
@@ -1448,7 +1452,7 @@ MonoBehaviour:
   enemyController: {fileID: 1004536423}
   enemySpawn: {fileID: 123705594}
   findFightPositions: {fileID: 2128797728}
-  simulataneousAttackingEnemies: 2
+  simulataneousAttackingEnemies: 1
 --- !u!4 &1819704546
 Transform:
   m_ObjectHideFlags: 0

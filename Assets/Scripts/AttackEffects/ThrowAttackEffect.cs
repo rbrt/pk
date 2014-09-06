@@ -8,18 +8,32 @@ public class ThrowAttackEffect : AttackEffect {
         var currentPos = basePos;
         var trans = target.transform;
 
+        var animator = target.GetComponent<AnimateEnemy>();
+
         float count = 0,
               countIncrement = .08f,
               xOffset = .025f,
               timeOnGroundBetweenBounce = .1f,
-              timeOnGround = .5f;
+              timeOnGround = 1;
 
         int bounces = 0,
             bounceCount = 3;
 
         while (bounces < bounceCount){
             count = 0;
+            bool thrown = false;
+
             while (count < Mathf.PI){
+                if (!thrown){
+                    if (bounces > 0){
+                        thrown = true;
+                        animator.Thrown();
+                    }
+                    else if (count > Mathf.PI / 4){
+                        thrown = true;
+                        animator.Thrown();
+                    }
+                }
                 currentPos.x += xOffset - (.02f * (bounces/(float)bounceCount));
                 currentPos.y = (basePos.y + Mathf.Sin(count)) * (bounceCount - bounces)/(bounceCount);
 
@@ -29,6 +43,7 @@ public class ThrowAttackEffect : AttackEffect {
                 yield return null;
             }
             bounces++;
+            animator.HitGround();
             yield return new WaitForSeconds(timeOnGroundBetweenBounce);
         }
 

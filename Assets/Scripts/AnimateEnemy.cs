@@ -7,7 +7,9 @@ public class AnimateEnemy : MonoBehaviour {
                                         punchSprites,
                                         damageSprites,
                                         deadSprites,
-                                        movementSprites;
+                                        movementSprites,
+                                        thrownSprites,
+                                        hitGroundSprites;
 
     protected SpriteRenderer spriteRenderer;
 
@@ -28,7 +30,7 @@ public class AnimateEnemy : MonoBehaviour {
         }
     }
 
-    IEnumerator Animate(Sprite[] frames, bool repeat, float animationSpeed){
+    IEnumerator Animate(Sprite[] frames, float animationSpeed, bool repeat = false){
         int frameCount = 0;
 
         while (frameCount < frames.Length){
@@ -46,37 +48,49 @@ public class AnimateEnemy : MonoBehaviour {
     public void Punch(){
         float animationSpeed = .025f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(punchSprites, false, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(punchSprites, animationSpeed));
     }
 
     public void Idle(){
         float animationSpeed = .1f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(idleSprites, true, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(idleSprites, animationSpeed, true));
     }
 
     // Should not be move sprites in the future
     public void Inactive(){
         float animationSpeed = .025f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(movementSprites, false, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(movementSprites, animationSpeed));
     }
 
     public void Damage(){
         float animationSpeed = .025f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(damageSprites, false, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(damageSprites, animationSpeed));
     }
 
     public void Dead(){
         float animationSpeed = .025f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(deadSprites, false, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(deadSprites, animationSpeed));
     }
 
     public void Move(){
         float animationSpeed = .025f;
         CancelCurrentAnimation();
-        animationCoroutine = this.StartSafeCoroutine(Animate(movementSprites, true, animationSpeed));
+        animationCoroutine = this.StartSafeCoroutine(Animate(movementSprites, animationSpeed, true));
+    }
+
+    public void Thrown(){
+        float animationSpeed = .25f;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(thrownSprites, animationSpeed));
+    }
+
+    public void HitGround(){
+        float animationSpeed = .025f;
+        CancelCurrentAnimation();
+        animationCoroutine = this.StartSafeCoroutine(Animate(hitGroundSprites, animationSpeed));
     }
 }

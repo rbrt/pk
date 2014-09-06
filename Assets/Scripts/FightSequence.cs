@@ -26,14 +26,16 @@ public class FightSequence : MonoBehaviour {
 	}
 
 	void Update () {
-        BringIdleEnemiesInToTheFight();
+        if (enemySpawn.DoneSpawning){
+            BringIdleEnemiesInToTheFight();
 
-        if (fightingEnemies.Length > 0){
-            var positions = findFightPositions.GetEnemyPositions(fightingEnemies);
+            if (fightingEnemies.Length > 0){
+                var positions = findFightPositions.GetEnemyPositions(fightingEnemies);
 
-            for (int i = 0; i < fightingEnemies.Length; i++){
-                if (fightingEnemies[i] != null){
-                    fightingEnemies[i].GetComponent<Enemy>().Destination = positions[i];
+                for (int i = 0; i < fightingEnemies.Length; i++){
+                    if (fightingEnemies[i] != null){
+                        fightingEnemies[i].GetComponent<Enemy>().Destination = positions[i];
+                    }
                 }
             }
         }

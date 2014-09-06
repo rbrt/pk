@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour {
                                      attackDamage = 2;
 
     protected AnimateEnemy animateEnemy;
-    protected float health = 500;
+    protected float health = 5;
     [SerializeField] protected bool punching = false;
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
