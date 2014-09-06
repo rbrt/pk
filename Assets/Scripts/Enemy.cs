@@ -211,11 +211,11 @@ public class Enemy : MonoBehaviour {
 
         health -= damage;
 
-        yield return new WaitForSeconds(damageDuration);
-
         if (attackEffects.Length > 0){
             yield return this.StartSafeCoroutine(WaitForAttackEffects(attackEffects));
         }
+
+        yield return new WaitForSeconds(damageDuration);
 
         if (health > 0){
             animateEnemy.Inactive();

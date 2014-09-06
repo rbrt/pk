@@ -9,18 +9,30 @@ public class ThrowAttackEffect : AttackEffect {
         var trans = target.transform;
 
         float count = 0,
-              countIncrement = .01f,
-              xOffset = .1f;
+              countIncrement = .08f,
+              xOffset = .025f,
+              timeOnGroundBetweenBounce = .1f,
+              timeOnGround = .5f;
 
-        while (count < Mathf.PI * 1.5f){
-            currentPos.x = basePos.x + xOffset;
-            currentPos.y = basePos.y + Mathf.Sin(count);
+        int bounces = 0,
+            bounceCount = 3;
 
-            count += countIncrement;
-            trans.position = currentPos;
+        while (bounces < bounceCount){
+            count = 0;
+            while (count < Mathf.PI){
+                currentPos.x += xOffset - (.02f * (bounces/(float)bounceCount));
+                currentPos.y = (basePos.y + Mathf.Sin(count)) * (bounceCount - bounces)/(bounceCount);
 
-            yield return null;
+                count += countIncrement;
+                trans.position = currentPos;
+
+                yield return null;
+            }
+            bounces++;
+            yield return new WaitForSeconds(timeOnGroundBetweenBounce);
         }
+
+        yield return new WaitForSeconds(timeOnGround);
     }
 
 }
