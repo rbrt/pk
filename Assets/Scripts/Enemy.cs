@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Enemy : MonoBehaviour {
 
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour {
                                      attackDamage = 2;
 
     protected AnimateEnemy animateEnemy;
-    protected float health = 5;
+    protected float health = 500;
     [SerializeField] protected bool punching = false;
     protected SafeCoroutine behaviourCoroutine;
     protected FightSequence fightSequence;
@@ -119,8 +120,8 @@ public class Enemy : MonoBehaviour {
                 if (InRangeForAttack()){
                     if (!punching){
                         CancelBehaviourCoroutine();
-                        punching = true;
-                        behaviourCoroutine = this.StartSafeCoroutine(Punch());
+                        //punching = true;
+                        //behaviourCoroutine = this.StartSafeCoroutine(Punch());
                     }
                 }
                 else{
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour {
 
             }
             else if (enemyState == EnemyStates.Damaged){
-
+                return;
             }
             else if (enemyState == EnemyStates.Idle){
                 if (!InRangeOfDestinationPosition()){
@@ -189,7 +190,7 @@ public class Enemy : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator Damaged(float damage){
+    IEnumerator Damaged(float damage, AttackEffect[] attackEffects){
         var previousState = enemyState;
         enemyState = EnemyStates.Damaged;
         animateEnemy.Damage();
@@ -198,9 +199,24 @@ public class Enemy : MonoBehaviour {
 
         yield return new WaitForSeconds(damageDuration);
 
+        if (attackEffects.Length > 0){
+            yield return this.StartSafeCoroutine(WaitForAttackEffects(attackEffects));
+        }
+
         if (health > 0){
             animateEnemy.Inactive();
             enemyState = previousState;
+        }
+    }
+
+    IEnumerator WaitForAttackEffects(AttackEffect[] attackEffects){
+        SafeCoroutine[] coroutines = new SafeCoroutine[attackEffects.Length];
+        for (int i = 0; i < attackEffects.Length; i++){
+            coroutines[i] = attackEffects[i].InvokeEffect(gameObject);
+        }
+
+        while (coroutines.Any(x => x.IsRunning)){
+            yield return null;
         }
     }
 
@@ -226,9 +242,9 @@ public class Enemy : MonoBehaviour {
         enemyState = EnemyStates.Moving;
     }
 
-    public void TakeDamage(float damage){
+    public void TakeDamage(float damage, AttackEffect[] attackEffects){
         if (enemyState != EnemyStates.Dead){
-            behaviourCoroutine = this.StartSafeCoroutine(Damaged(damage));
+            behaviourCoroutine = this.StartSafeCoroutine(Damaged(damage, attackEffects));
         }
     }
 }

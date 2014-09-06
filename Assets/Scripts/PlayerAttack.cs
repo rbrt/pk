@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour {
 
     [SerializeField] protected Sprite[] attackSprites;
 
+    [SerializeField] protected AttackEffect[] attackEffects;
+
     protected float startTime;
 
     [HideInInspector]
@@ -41,6 +43,10 @@ public class PlayerAttack : MonoBehaviour {
 
             return allMoves.ToArray();
         }
+    }
+
+    public AttackEffect[] AttackEffects{
+        get { return attackEffects; }
     }
 
     public float AttackRange{

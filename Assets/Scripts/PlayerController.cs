@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour {
 
         if (hits.Count() > 0){
             for (int i = 0; i < Mathf.Min(simultaneousEnemiesToAttack, hits.Count()); i++){
-                hits[i].collider.GetComponent<Enemy>().TakeDamage(attack.Damage);
+                hits[i].collider.GetComponent<Enemy>().TakeDamage(attack.Damage, attack.AttackEffects);
             }
         }
 
