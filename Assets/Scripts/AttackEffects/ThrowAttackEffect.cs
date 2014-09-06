@@ -19,6 +19,8 @@ public class ThrowAttackEffect : AttackEffect {
         int bounces = 0,
             bounceCount = 3;
 
+        bool goRight = target.transform.rotation.y != 0;
+
         while (bounces < bounceCount){
             count = 0;
             bool thrown = false;
@@ -34,7 +36,14 @@ public class ThrowAttackEffect : AttackEffect {
                         animator.Thrown();
                     }
                 }
-                currentPos.x += xOffset - (.02f * (bounces/(float)bounceCount));
+
+                if (goRight){
+                    currentPos.x += xOffset - (.02f * (bounces/(float)bounceCount));
+                }
+                else{
+                    currentPos.x -= xOffset - (.02f * (bounces/(float)bounceCount));
+                }
+
                 currentPos.y = (basePos.y + Mathf.Sin(count)) * (bounceCount - bounces)/(bounceCount);
 
                 count += countIncrement;
