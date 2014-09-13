@@ -21,7 +21,11 @@ public class PlayerController : MonoBehaviour {
                     punchDuration = .3f,
                     punchRange = .5f,
                     damageDuration = .2f,
-                    blockDamageReduction = .2f;
+                    blockDamageReduction = .2f,
+                    maxYvalue = .69f,
+                    minYValue = -1.05f,
+                    maxXValue = 15,
+                    minXValue = -3.3f;
 
     protected int simultaneousEnemiesToAttack = 3;
 
@@ -41,19 +45,19 @@ public class PlayerController : MonoBehaviour {
         var pos = transform.position;
 
         if (!attacking && !damaged){
-            if (moveLeft){
+            if (moveLeft && pos.x > minXValue){
                 transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
                 pos.x -= hMoveSpeed;
             }
-            else if (moveRight){
+            else if (moveRight && pos.x < maxXValue){
                 transform.rotation = Quaternion.Euler(Vector3.zero);
                 pos.x += hMoveSpeed;
             }
 
-            if (moveUp){
+            if (moveUp && pos.y < maxYvalue){
                 pos.y += vMoveSpeed;
             }
-            else if (moveDown){
+            else if (moveDown && pos.y > minYValue){
                 pos.y -= vMoveSpeed;
             }
         }
