@@ -24,24 +24,28 @@ public class PlayerAttackInspector : Editor {
 
         GUILayout.Space(20);
 
+        GUILayout.BeginHorizontal();
         GUILayout.Label("Attack 1 Moves:");
 
         if (GUILayout.Button("Add Attack 1 Move")){
             CreateChildPlayerAttack(playerAttack, playerAttack.AddAttack1Move);
         }
 
+        GUILayout.EndHorizontal();
+        
         if (DrawPlayerAttacks(playerAttack.Attack1Moves.Where(x => x != null).ToList())){
             update = true;
         }
 
-
         GUILayout.Space(20);
 
+        GUILayout.BeginHorizontal();
         GUILayout.Label("Attack 2 Moves:");
 
         if (GUILayout.Button("Add Attack 2 Move")){
             CreateChildPlayerAttack(playerAttack, playerAttack.AddAttack2Move);
         }
+        GUILayout.EndHorizontal();
 
         if (DrawPlayerAttacks(playerAttack.Attack2Moves.Where(x => x != null).ToList())){
             update = true;
