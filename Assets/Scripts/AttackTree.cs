@@ -12,6 +12,8 @@ public class AttackTree : MonoBehaviour {
 
     [SerializeField] protected HandlePlayerInputFlash handleInputFlash;
 
+    [SerializeField] protected bool logMessages;
+
     SafeCoroutine behaviourCoroutine;
 
     public enum AttackInputType {Attack1, Attack2};
@@ -62,11 +64,15 @@ public class AttackTree : MonoBehaviour {
                     currentAttack = attack;
                 }
 
-                Debug.Log(currentAttack.name);
+                if (logMessages){
+                    Debug.Log(currentAttack.name);
+                }
 
             }
             else {
-                Debug.Log("No valid attack");
+                if (logMessages){
+                    Debug.Log("No valid attack");
+                }
                 currentAttack = null;
             }
         }
