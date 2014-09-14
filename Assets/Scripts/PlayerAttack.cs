@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour {
     [SerializeField] protected float damage,
                                      baseAttackTime,    // How long before other actions are allowed
                                      attackRange,
-                                     attackDuration;
+                                     attackDuration;    // How long the attack should take
 
     [SerializeField] protected AttackTree attackTree;
 

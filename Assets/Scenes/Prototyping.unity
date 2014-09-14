@@ -140,7 +140,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 1814312643
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &50920962
 Transform:
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Mat: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Sprite: {fileID: 0}
   m_Type: 0
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Mat: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Sprite: {fileID: 0}
   m_Type: 0
@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleSprites:
-  - {fileID: 21300004, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
+  - {fileID: 21300000, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
   punchSprites:
   - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
   - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
@@ -1655,6 +1655,10 @@ Prefab:
       propertyPath: attackEffects.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
       propertyPath: m_LocalPosition.x
       value: 103.118729
@@ -1694,6 +1698,36 @@ Prefab:
     - target: {fileID: 11400012, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
       propertyPath: damage
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f2be393b24d834f3882bd132f836724d,
+        type: 3}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: e3fd657d5ea044e14bf6a72c582ff981,
+        type: 3}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: baseAttackTime
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackRange
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackDuration
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
+      propertyPath: attackSprites.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69fdadfd404f9418c80f7a1d98148d99, type: 2}
@@ -1857,12 +1891,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5f8f8670f04dd280875145bcbdac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  baseAttackTime: 0
-  attackRange: 0
-  attackDuration: 0
+  damage: 3
+  baseAttackTime: .100000001
+  attackRange: .600000024
+  attackDuration: .5
   attackTree: {fileID: 119614199}
-  attackSprites: []
+  attackSprites:
+  - {fileID: 21300000, guid: f2be393b24d834f3882bd132f836724d, type: 3}
+  - {fileID: 21300000, guid: e3fd657d5ea044e14bf6a72c582ff981, type: 3}
   attackEffects: []
   attack1Moves: []
   attack2Moves: []
