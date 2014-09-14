@@ -70,43 +70,51 @@ public class PlayerController : MonoBehaviour {
 	}
 
     bool LeftInputDown{
-        get { return Input.GetKeyDown(KeyCode.A); }
+        get { return Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow); }
     }
 
     bool RightInputDown{
-        get { return Input.GetKeyDown(KeyCode.D); }
+        get { return Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow); }
     }
 
     bool UpInputDown{
-        get { return Input.GetKeyDown(KeyCode.W); }
+        get { return Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow); }
     }
 
     bool DownInputDown{
-        get { return Input.GetKeyDown(KeyCode.S); }
+        get { return Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow); }
     }
 
     bool Attack1InputDown{
-        get { return Input.GetKeyDown(KeyCode.Space); }
+        get { return Input.GetKeyDown(KeyCode.Z); }
+    }
+
+    bool Attack2InputDown{
+        get { return Input.GetKeyDown(KeyCode.X); }
     }
 
     bool LeftInputUp{
-        get { return Input.GetKeyUp(KeyCode.A); }
+        get { return Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow); }
     }
 
     bool RightInputUp{
-        get { return Input.GetKeyUp(KeyCode.D); }
+        get { return Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow); }
     }
 
     bool UpInputUp{
-        get { return Input.GetKeyUp(KeyCode.W); }
+        get { return Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow); }
     }
 
     bool DownInputUp{
-        get { return Input.GetKeyUp(KeyCode.S); }
+        get { return Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow); }
     }
 
     bool Attack1InputUp{
-        get { return Input.GetKeyUp(KeyCode.Space); }
+        get { return Input.GetKeyUp(KeyCode.Z); }
+    }
+
+    bool Attack2InputUp{
+        get { return Input.GetKeyUp(KeyCode.X); }
     }
 
     bool BlockInput {
@@ -138,10 +146,19 @@ public class PlayerController : MonoBehaviour {
             moveLeft = false;
             moveRight = true;
         }
-        // Punch
+        // Attack1
         else if (Attack1InputDown){
             if (!attacking){
                 PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack1);
+                if (attack != null){
+                    this.StartSafeCoroutine(Attack(attack));
+                }
+            }
+        }
+        //Attack2
+        else if (Attack2InputDown){
+            if (!attacking){
+                PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack2);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
