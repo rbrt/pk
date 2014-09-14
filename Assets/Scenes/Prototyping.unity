@@ -275,6 +275,7 @@ MonoBehaviour:
   attack1: {fileID: 1255490297}
   attack2: {fileID: 1797562897}
   handleInputFlash: {fileID: 0}
+  logMessages: 0
 --- !u!4 &119614200
 Transform:
   m_ObjectHideFlags: 0
@@ -988,7 +989,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 856776082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0174493026, y: .244387165, z: 3.0049572}
+  m_LocalPosition: {x: .0174490009, y: -1.80439997, z: 3.00500011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1917395194}
@@ -1796,12 +1797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60099eec1893d437c8995ab898cfd360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minY: -.0350000001
-  maxY: 1.30999994
-  minX: 0
-  maxX: 15
-  cameraScrollAmount: 5
-  horizontalScrollAmount: 10
   player: {fileID: 1280485264}
   street: {fileID: 54992063}
 --- !u!1 &1652511007

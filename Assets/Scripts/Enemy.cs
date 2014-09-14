@@ -102,11 +102,15 @@ public class Enemy : MonoBehaviour {
                     }
                     // Move towards destination
 
-                    if (destinationPosition.y <= pos.y){
+                    if (destinationPosition.y <= pos.y + .01f){
                         pos.y -= vMoveSpeed;
                     }
-                    else if (destinationPosition.y > pos.y){
+                    else if (destinationPosition.y > pos.y - .01f){
                         pos.y += vMoveSpeed;
+                    }
+
+                    if (Mathf.Abs(pos.y - destinationPosition.y) < .03){
+                        pos.y = destinationPosition.y;
                     }
 
                     if (destinationPosition.x <= pos.x){

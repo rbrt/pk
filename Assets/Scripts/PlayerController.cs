@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
                     damageDuration = .2f,
                     blockDamageReduction = .2f,
                     maxYvalue = .69f,
-                    minYValue = -1.05f,
+                    minYValue = -1.25f,
                     maxXValue = 15,
                     minXValue = -3.3f;
 

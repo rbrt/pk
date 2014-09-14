@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour {
 
-    [SerializeField] protected float minY = -.035f,
-                                     maxY = 1.31f,
-                                     minX = 0,
-                                     maxX = 15,
-                                     cameraScrollAmount = 5f,
-                                     horizontalScrollAmount = 20f;
+    protected float minY = -.25f,
+                    maxY = 1.31f,
+                    minX = 0,
+                    maxX = 15,
+                    cameraScrollAmount = 1f,
+                    horizontalScrollAmount = 1.75f;
 
     [SerializeField] protected GameObject player;
     [SerializeField] protected GameObject street;

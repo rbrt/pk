@@ -16,7 +16,8 @@ public class EnemyController : MonoBehaviour {
     protected int enemyCount = 0;
 
     protected float idleXCoord = 1.9f,
-                    idleYCoord = .9f;
+                    maxIdleYCoord = .69f,
+                    minIdleYCoord = -1.25f;
 
     public List<GameObject> EnemyList {
         get { return enemyList; }
@@ -38,7 +39,7 @@ public class EnemyController : MonoBehaviour {
     Vector3 FindIdlePosition(){
         var position = player.transform.position;
         position.x += (Random.Range((idleXCoord * .8f), idleXCoord)) * (Random.Range(0,100) > 50 ? -1 : 1);
-        position.y += (Random.Range(0, idleYCoord)) * (Random.Range(0,100) > 50 ? -1 : 1);
+        position.y += (Random.Range(minIdleYCoord, maxIdleYCoord));
         return position;
     }
 
@@ -60,7 +61,7 @@ public class EnemyController : MonoBehaviour {
             position = leftSpawnLocation.position;
         }
 
-        position.y += (Random.Range(-100, 100) / 100f);
+        position.y += (Random.Range(-50, 50) / 100f);
 
         var enemy = GameObject.Instantiate(enemyToInstantiate, position, Quaternion.Euler(Vector3.zero)) as GameObject;
         enemy.name += enemyCount++;
