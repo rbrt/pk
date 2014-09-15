@@ -140,7 +140,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 1814312643
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
+  m_Sprite: {fileID: 21300004, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &50920962
 Transform:
@@ -1601,7 +1601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleSprites:
-  - {fileID: 21300000, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
+  - {fileID: 21300004, guid: 1dd34535681ea445bb4c7b25980985ca, type: 3}
   punchSprites:
   - {fileID: 21300000, guid: ebccaf6f3a7064d53b90db426795070f, type: 3}
   - {fileID: 21300000, guid: 4145bbfd22610409caa806a8af277e69, type: 3}
