@@ -16,7 +16,18 @@ public class AttackTree : MonoBehaviour {
 
     SafeCoroutine behaviourCoroutine;
 
-    public enum AttackInputType {Attack1, Attack2};
+    public enum AttackInputType {None,
+                                 Attack1,
+                                 Attack2,
+                                 DownToForwardA1,
+                                 DownToForwardA2,
+                                 DownToBackA1,
+                                 DownToBackA2,
+                                 ForwardForwardA1,
+                                 ForwardForwardA2,
+                                 BackBackA1,
+                                 BackBackA2
+                                 };
 
     Dictionary<AttackInputType, PlayerAttack> baseAttacks;
 
