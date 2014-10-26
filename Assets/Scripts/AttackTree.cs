@@ -68,7 +68,9 @@ public class AttackTree : MonoBehaviour {
 
                 // No move next on the tree, start from base corresponding to button pressed
                 if (attack == null){
-                    currentAttack = baseAttacks[attackInputType];
+                    if (baseAttacks.Keys.Contains(attackInputType)){
+                        currentAttack = baseAttacks[attackInputType];
+                    }
                 }
                 // Advance along the tree
                 else{
@@ -78,18 +80,19 @@ public class AttackTree : MonoBehaviour {
                 if (logMessages){
                     Debug.Log(currentAttack.name);
                 }
-
             }
             else {
                 if (logMessages){
                     Debug.Log("No valid attack");
-                }
+            }
                 currentAttack = null;
             }
         }
         // Base attack on tree
         else{
-            currentAttack = baseAttacks[attackInputType];
+            if (baseAttacks.Keys.Contains(attackInputType)){
+                currentAttack = baseAttacks[attackInputType];
+            }
         }
 
         if (currentAttack != null){

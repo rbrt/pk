@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     public PlayerAttack GetNextAttack(AttackTree.AttackInputType attackInputType){
-        NextMove[] attackMoves;
+        NextMove[] attackMoves = null;
 
         if (attackInputType == AttackTree.AttackInputType.Attack1){
             attackMoves = attack1Moves;
@@ -118,10 +118,12 @@ public class PlayerAttack : MonoBehaviour {
             attackMoves = attack2Moves;
         }
 
-        float elapsedTime = Time.time - startTime;
-        var attacks = attackMoves.Where(x => elapsedTime < x.CutoffTime).OrderBy(x => x.CutoffTime).ToList();
-        if (attacks.Count > 0){
-            return attacks[0].AccessNextMove;
+        if (attackMoves != null){
+            float elapsedTime = Time.time - startTime;
+            var attacks = attackMoves.Where(x => x != null && elapsedTime < x.CutoffTime).OrderBy(x => x.CutoffTime).ToList();
+            if (attacks.Count > 0){
+                return attacks[0].AccessNextMove;
+            }
         }
 
         return null;

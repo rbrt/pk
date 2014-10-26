@@ -5,8 +5,10 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
+    static PlayerController instance;
     [SerializeField] protected HealthBar healthBar;
     [SerializeField] protected AttackTree attackTree;
+    [SerializeField] protected PlayerInputManager playerInputManager;
 
     protected bool moveLeft,
                    moveRight,
@@ -31,8 +33,18 @@ public class PlayerController : MonoBehaviour {
 
     protected AnimateDude animateDude;
 
+    protected AttackTree.AttackInputType currentPlayerAttack;
+
+    public static AttackTree.AttackInputType CurrentPlayerAttack {
+        set { instance.currentPlayerAttack = value; }
+    }
+
     bool EngagedInAction{
         get {return attacking || damaged || block;}
+    }
+
+    void Awake(){
+        instance = this;
     }
 
     void Start(){
@@ -130,45 +142,61 @@ public class PlayerController : MonoBehaviour {
         if (UpInputDown){
             moveUp = true;
             moveDown = false;
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Up);
         }
         // Left
         else if (LeftInputDown){
             moveLeft = true;
             moveRight = false;
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);
         }
         // Down
         else if (DownInputDown){
             moveUp = false;
             moveDown = true;
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Down);
         }
         // Right
         else if (RightInputDown){
             moveLeft = false;
             moveRight = true;
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Right);
         }
         // Attack1
         else if (Attack1InputDown){
-            if (!attacking){
+            /*if (!attacking){
                 PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack1);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
-            }
+            }*/
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Attack1);
         }
         //Attack2
         else if (Attack2InputDown){
-            if (!attacking){
+            /*if (!attacking){
                 PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack2);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
-            }
+            }*/
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Attack2);
         }
 
+        if (!attacking){
+            if (currentPlayerAttack != AttackTree.AttackInputType.None){
+                var attack = attackTree.GetAttack(currentPlayerAttack);
+                if (attack != null){
+                    this.StartSafeCoroutine(Attack(attack));
+                }
+                currentPlayerAttack = AttackTree.AttackInputType.None;
+            }
+        }
 
         // Help a player block if they are getting stomped
         if (BlockInput){
             this.StartSafeCoroutine(Block());
+            playerInputManager.SendInput(PlayerInputManager.InputTypes.Block);
         }
 
         // Up

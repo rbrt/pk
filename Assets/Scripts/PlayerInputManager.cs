@@ -6,7 +6,8 @@ using ExtensionMethods;
 public class PlayerInputManager : MonoBehaviour {
 
 	static PlayerInputManager instance;
-	protected static int minLifetime = 6;	// Frames to wait before processing anything
+	protected static int minLifetime = 5;	// Frames to wait before processing anything
+	protected static int ttl = 25;			// Time for an item to remain in the queue
 
 	public enum InputTypes {Up, Right, Left, Down, Attack1, Attack2, Block};
 
@@ -35,12 +36,22 @@ public class PlayerInputManager : MonoBehaviour {
 		AttackTree.AttackInputType inputType = ProcessInput();
 
 		if (inputType != AttackTree.AttackInputType.None){
-			// Do something
+			PlayerController.CurrentPlayerAttack = inputType;
 		}
 	}
 
 	void UpdateFrames(){
-		inputList.ForEach(element => element.frames++);
+		for (int i = inputList.Count-1; i >= 0; i--){
+			var element = inputList[i];
+			element.frames--;
+
+			if (element.frames < 0){
+				inputList.RemoveAt(i);
+			}
+			else{
+				inputList[i] = element;
+			}
+		}
 	}
 
 	AttackTree.AttackInputType ProcessInput(){
@@ -48,8 +59,14 @@ public class PlayerInputManager : MonoBehaviour {
 			return AttackTree.AttackInputType.None;
 		}
 
+		// Wait for minLifetime frames before grabbing an input batch
+		if (inputList[0].frames > minLifetime){
+			return AttackTree.AttackInputType.None;
+		}
+
 		// Down
 		if (inputList[0].ValidInput(InputTypes.Down)){
+			Debug.Log("DOWN");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Down Right
@@ -89,6 +106,7 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Right
 		else if (inputList[0].ValidInput(InputTypes.Right)){
+			Debug.Log("RIGHT");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Right Right
@@ -110,15 +128,17 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Left
 		else if (inputList[0].ValidInput(InputTypes.Left)){
+			Debug.Log("LEFT");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Left Left
 				if(inputList[0].ValidInput(InputTypes.Left)){
+					Debug.Log("LEFT LEFT");
 					inputList.RemoveAt(0);
 					if (inputList.Count > 0){
-
 						// Left Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
+							Debug.Log("LEFT LEFT ATTACK1");
 							return AttackTree.AttackInputType.BackBackA1;
 						}
 						// Left Left Attack2
@@ -131,10 +151,12 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Attack1
 		else if (inputList[0].ValidInput(InputTypes.Attack1)){
+			inputList.RemoveAt(0);
 			return AttackTree.AttackInputType.Attack1;
 		}
 		// Attack2
 		else if (inputList[0].ValidInput(InputTypes.Attack2)){
+			inputList.RemoveAt(0);
 			return AttackTree.AttackInputType.Attack2;
 		}
 
@@ -147,7 +169,7 @@ public class PlayerInputManager : MonoBehaviour {
 
 		public InputPair(InputTypes newInput){
 			inputType = newInput;
-			frames = 0;
+			frames = ttl;
 		}
 	}
 }
@@ -155,7 +177,7 @@ public class PlayerInputManager : MonoBehaviour {
 namespace ExtensionMethods{
     public static class InputPairExtensions{
         public static bool ValidInput(this PlayerInputManager.InputPair pair, PlayerInputManager.InputTypes inputType){
-			return (pair.frames >= PlayerInputManager.MinLifetime && inputType == pair.inputType);
+			return (inputType == pair.inputType);
 		}
     }
 }
