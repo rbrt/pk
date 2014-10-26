@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using ExtensionMethods;
@@ -6,7 +6,7 @@ using ExtensionMethods;
 public class PlayerInputManager : MonoBehaviour {
 
 	static PlayerInputManager instance;
-	protected const int minLifetime = 6;	// Frames to wait before processing anything
+	protected static int minLifetime = 6;	// Frames to wait before processing anything
 
 	public enum InputTypes {Up, Right, Left, Down, Attack1, Attack2, Block};
 
@@ -14,6 +14,10 @@ public class PlayerInputManager : MonoBehaviour {
 
 	public static PlayerInputManager InputManager {
 		get { return instance; }
+	}
+
+	public static float MinLifetime {
+		get { return minLifetime; }
 	}
 
 	public void SendInput(InputTypes inputType){
@@ -127,11 +131,11 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Attack1
 		else if (inputList[0].ValidInput(InputTypes.Attack1)){
-			AttackTree.AttackInputType.Attack1;
+			return AttackTree.AttackInputType.Attack1;
 		}
 		// Attack2
 		else if (inputList[0].ValidInput(InputTypes.Attack2)){
-			AttackTree.AttackInputType.Attack2;
+			return AttackTree.AttackInputType.Attack2;
 		}
 
 		return AttackTree.AttackInputType.None;
@@ -151,7 +155,7 @@ public class PlayerInputManager : MonoBehaviour {
 namespace ExtensionMethods{
     public static class InputPairExtensions{
         public static bool ValidInput(this PlayerInputManager.InputPair pair, PlayerInputManager.InputTypes inputType){
-			return (pair.frames >= minLifetime && inputType == pair.inputType);
+			return (pair.frames >= PlayerInputManager.MinLifetime && inputType == pair.inputType);
 		}
     }
 }
