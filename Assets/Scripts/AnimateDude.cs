@@ -10,7 +10,6 @@ public class AnimateDude : MonoBehaviour {
                                         blockSprites;
 
     protected SpriteRenderer spriteRenderer;
-
     protected float animationSpeed = .025f;
 
     SafeCoroutine animationCoroutine;
