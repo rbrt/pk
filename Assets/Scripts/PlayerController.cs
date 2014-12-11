@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour {
         get {return attacking || damaged || block;}
     }
 
+    bool PlayerFacingRight{
+        get { return transform.rotation.y != 0; }
+    }
+
     void Awake(){
         instance = this;
     }
@@ -148,7 +152,12 @@ public class PlayerController : MonoBehaviour {
         else if (LeftInputDown){
             moveLeft = true;
             moveRight = false;
-            playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);
+            if (PlayerFacingRight){
+                playerInputManager.SendInput(PlayerInputManager.InputTypes.Right);
+            }
+            else{
+                playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);
+            }
         }
         // Down
         else if (DownInputDown){
@@ -160,7 +169,12 @@ public class PlayerController : MonoBehaviour {
         else if (RightInputDown){
             moveLeft = false;
             moveRight = true;
-            playerInputManager.SendInput(PlayerInputManager.InputTypes.Right);
+            if (PlayerFacingRight){
+                playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);    
+            }
+            else{
+                playerInputManager.SendInput(PlayerInputManager.InputTypes.Right);
+            }
         }
         // Attack1
         else if (Attack1InputDown){

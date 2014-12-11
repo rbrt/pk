@@ -151,7 +151,6 @@ public class PlayerInputManager : MonoBehaviour {
 						// Left Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
 							inputList.RemoveAt(0);
-							Debug.Log("Special!");
 							return AttackHandler.AttackInputType.BackBackA1;
 						}
 						// Left Left Attack2
