@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour {
             moveLeft = false;
             moveRight = true;
             if (PlayerFacingRight){
-                playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);    
+                playerInputManager.SendInput(PlayerInputManager.InputTypes.Left);
             }
             else{
                 playerInputManager.SendInput(PlayerInputManager.InputTypes.Right);
@@ -267,6 +267,10 @@ public class PlayerController : MonoBehaviour {
         if (hits.Count() > 0){
             for (int i = 0; i < Mathf.Min(simultaneousEnemiesToAttack, hits.Count()); i++){
                 hits[i].collider.GetComponent<Enemy>().TakeDamage(attack.Damage, attack.AttackEffects);
+                var audioClip = attack.AttackSound;
+                if (audioClip){
+                    AudioSource.PlayClipAtPoint(audioClip, Vector3.zero);
+                }
             }
         }
 

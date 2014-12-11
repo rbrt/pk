@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour {
 
     [SerializeField] protected AttackEffect[] attackEffects;
 
+    [SerializeField] protected AudioClip[] attackSounds;
+
     protected float startTime;
 
     [HideInInspector]
@@ -47,6 +49,10 @@ public class PlayerAttack : MonoBehaviour {
 
     public AttackEffect[] AttackEffects{
         get { return attackEffects; }
+    }
+
+    public AudioClip AttackSound{
+        get { return attackSounds[Random.Range(0, attackSounds.Length-1)]; } 
     }
 
     public float AttackRange{
