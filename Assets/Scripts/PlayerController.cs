@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     static PlayerController instance;
     [SerializeField] protected HealthBar healthBar;
-    [SerializeField] protected AttackTree attackTree;
+    [SerializeField] protected AttackHandler attackHandler;
     [SerializeField] protected PlayerInputManager playerInputManager;
 
     protected bool moveLeft,
@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour {
 
     protected AnimateDude animateDude;
 
-    protected AttackTree.AttackInputType currentPlayerAttack;
+    protected AttackHandler.AttackInputType currentPlayerAttack;
 
-    public static AttackTree.AttackInputType CurrentPlayerAttack {
+    public static AttackHandler.AttackInputType CurrentPlayerAttack {
         set { instance.currentPlayerAttack = value; }
     }
 
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour {
         // Attack1
         else if (Attack1InputDown){
             /*if (!attacking){
-                PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack1);
+                PlayerAttack attack = attackHandler.GetAttack(AttackHandler.AttackInputType.Attack1);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour {
         //Attack2
         else if (Attack2InputDown){
             /*if (!attacking){
-                PlayerAttack attack = attackTree.GetAttack(AttackTree.AttackInputType.Attack2);
+                PlayerAttack attack = attackHandler.GetAttack(AttackHandler.AttackInputType.Attack2);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
@@ -184,12 +184,12 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (!attacking){
-            if (currentPlayerAttack != AttackTree.AttackInputType.None){
-                var attack = attackTree.GetAttack(currentPlayerAttack);
+            if (currentPlayerAttack != AttackHandler.AttackInputType.None){
+                var attack = attackHandler.GetAttack(currentPlayerAttack);
                 if (attack != null){
                     this.StartSafeCoroutine(Attack(attack));
                 }
-                currentPlayerAttack = AttackTree.AttackInputType.None;
+                currentPlayerAttack = AttackHandler.AttackInputType.None;
             }
         }
 

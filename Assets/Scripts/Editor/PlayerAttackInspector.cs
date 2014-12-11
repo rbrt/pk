@@ -32,7 +32,7 @@ public class PlayerAttackInspector : Editor {
         }
 
         GUILayout.EndHorizontal();
-        
+
         if (DrawPlayerAttacks(playerAttack.Attack1Moves.Where(x => x != null).ToList())){
             update = true;
         }
@@ -82,8 +82,13 @@ public class PlayerAttackInspector : Editor {
         }
 
         if (update){
-            var instance = PrefabUtility.FindPrefabRoot(playerAttack.AccessAttackTree.gameObject);
-            PrefabUtility.ReplacePrefab(instance, PrefabUtility.GetPrefabParent(instance), ReplacePrefabOptions.ConnectToPrefab);
+            try{
+                var instance = PrefabUtility.FindPrefabRoot(playerAttack.AccessAttackHandler.gameObject);
+                PrefabUtility.ReplacePrefab(instance, PrefabUtility.GetPrefabParent(instance), ReplacePrefabOptions.ConnectToPrefab);
+            }
+            catch{
+                
+            }
         }
     }
 
@@ -142,7 +147,7 @@ public class PlayerAttackInspector : Editor {
 
         item.Init();
         function(item);
-        item.AccessAttackTree = parent.AccessAttackTree;
+        item.AccessAttackHandler = parent.AccessAttackHandler;
 
         var instance = PrefabUtility.FindPrefabRoot(parent.gameObject);
         PrefabUtility.ReplacePrefab(instance, PrefabUtility.GetPrefabParent(instance), ReplacePrefabOptions.ConnectToPrefab);

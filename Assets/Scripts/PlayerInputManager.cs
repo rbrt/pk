@@ -33,9 +33,9 @@ public class PlayerInputManager : MonoBehaviour {
 	void Update () {
 		UpdateFrames();
 
-		AttackTree.AttackInputType inputType = ProcessInput();
+		AttackHandler.AttackInputType inputType = ProcessInput();
 
-		if (inputType != AttackTree.AttackInputType.None){
+		if (inputType != AttackHandler.AttackInputType.None){
 			PlayerController.CurrentPlayerAttack = inputType;
 		}
 	}
@@ -54,19 +54,18 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 	}
 
-	AttackTree.AttackInputType ProcessInput(){
+	AttackHandler.AttackInputType ProcessInput(){
 		if (inputList.Count == 0){
-			return AttackTree.AttackInputType.None;
+			return AttackHandler.AttackInputType.None;
 		}
 
 		// Wait for minLifetime frames before grabbing an input batch
 		if (inputList[0].frames > minLifetime){
-			return AttackTree.AttackInputType.None;
+			return AttackHandler.AttackInputType.None;
 		}
 
 		// Down
 		if (inputList[0].ValidInput(InputTypes.Down)){
-			Debug.Log("DOWN");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Down Right
@@ -76,11 +75,11 @@ public class PlayerInputManager : MonoBehaviour {
 					if (inputList.Count > 0){
 						// Down Right Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
-							return AttackTree.AttackInputType.DownToForwardA1;
+							return AttackHandler.AttackInputType.DownToForwardA1;
 						}
 						// Down Right Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
-							return AttackTree.AttackInputType.DownToForwardA2;
+							return AttackHandler.AttackInputType.DownToForwardA2;
 						}
 					}
 
@@ -92,11 +91,11 @@ public class PlayerInputManager : MonoBehaviour {
 					if (inputList.Count > 0){
 						// Down Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
-							return AttackTree.AttackInputType.DownToBackA1;
+							return AttackHandler.AttackInputType.DownToBackA1;
 						}
 						// Down Left Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
-							return AttackTree.AttackInputType.DownToBackA2;
+							return AttackHandler.AttackInputType.DownToBackA2;
 						}
 					}
 
@@ -106,7 +105,6 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Right
 		else if (inputList[0].ValidInput(InputTypes.Right)){
-			Debug.Log("RIGHT");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Right Right
@@ -116,11 +114,11 @@ public class PlayerInputManager : MonoBehaviour {
 
 						// Right Right Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
-							return AttackTree.AttackInputType.ForwardForwardA1;
+							return AttackHandler.AttackInputType.ForwardForwardA1;
 						}
 						// Right Right Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
-							return AttackTree.AttackInputType.ForwardForwardA2;
+							return AttackHandler.AttackInputType.ForwardForwardA2;
 						}
 					}
 				}
@@ -128,22 +126,20 @@ public class PlayerInputManager : MonoBehaviour {
 		}
 		// Left
 		else if (inputList[0].ValidInput(InputTypes.Left)){
-			Debug.Log("LEFT");
 			inputList.RemoveAt(0);
 			if (inputList.Count > 0){
 				// Left Left
 				if(inputList[0].ValidInput(InputTypes.Left)){
-					Debug.Log("LEFT LEFT");
 					inputList.RemoveAt(0);
 					if (inputList.Count > 0){
 						// Left Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
-							Debug.Log("LEFT LEFT ATTACK1");
-							return AttackTree.AttackInputType.BackBackA1;
+							Debug.Log("Special!");
+							return AttackHandler.AttackInputType.BackBackA1;
 						}
 						// Left Left Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
-							return AttackTree.AttackInputType.BackBackA2;
+							return AttackHandler.AttackInputType.BackBackA2;
 						}
 					}
 				}
@@ -152,15 +148,15 @@ public class PlayerInputManager : MonoBehaviour {
 		// Attack1
 		else if (inputList[0].ValidInput(InputTypes.Attack1)){
 			inputList.RemoveAt(0);
-			return AttackTree.AttackInputType.Attack1;
+			return AttackHandler.AttackInputType.Attack1;
 		}
 		// Attack2
 		else if (inputList[0].ValidInput(InputTypes.Attack2)){
 			inputList.RemoveAt(0);
-			return AttackTree.AttackInputType.Attack2;
+			return AttackHandler.AttackInputType.Attack2;
 		}
 
-		return AttackTree.AttackInputType.None;
+		return AttackHandler.AttackInputType.None;
 	}
 
 	public struct InputPair {

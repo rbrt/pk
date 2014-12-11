@@ -3,15 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class AttackTree : MonoBehaviour {
+public class AttackHandler : MonoBehaviour {
 
     protected PlayerAttack currentAttack;
 
     [SerializeField] protected PlayerAttack attack1,
-                                            attack2;
+                                            attack2,
+                                            downToForwardA1,
+                                            downToForwardA2,
+                                            downToBackA1,
+                                            downToBackA2,
+                                            forwardForwardA1,
+                                            forwardForwardA2,
+                                            backBackA1,
+                                            backBackA2;
 
     [SerializeField] protected HandlePlayerInputFlash handleInputFlash;
-
     [SerializeField] protected bool logMessages;
 
     SafeCoroutine behaviourCoroutine;
@@ -29,7 +36,8 @@ public class AttackTree : MonoBehaviour {
                                  BackBackA2
                                  };
 
-    Dictionary<AttackInputType, PlayerAttack> baseAttacks;
+    Dictionary<AttackInputType, PlayerAttack> baseAttacks,
+                                              attackDictionary;
 
     IEnumerator Primer(){
         yield break;
@@ -47,6 +55,21 @@ public class AttackTree : MonoBehaviour {
         if (handleInputFlash == null){
             handleInputFlash = GameObject.Find("PlayerCharacter").GetComponent<HandlePlayerInputFlash>();
         }
+
+        InitializeAttackDictionary();
+    }
+
+    void InitializeAttackDictionary(){
+        attackDictionary = new Dictionary<AttackInputType, PlayerAttack>();
+
+        attackDictionary[AttackInputType.DownToForwardA1] = downToForwardA1;
+        attackDictionary[AttackInputType.DownToForwardA2] = downToForwardA2;
+        attackDictionary[AttackInputType.DownToBackA1] = downToBackA1;
+        attackDictionary[AttackInputType.DownToBackA2] = downToBackA2;
+        attackDictionary[AttackInputType.ForwardForwardA1] = forwardForwardA1;
+        attackDictionary[AttackInputType.ForwardForwardA2] = forwardForwardA2;
+        attackDictionary[AttackInputType.BackBackA1] = backBackA1;
+        attackDictionary[AttackInputType.BackBackA2] = backBackA2;
     }
 
 	public PlayerAttack Attack1(){
@@ -64,7 +87,7 @@ public class AttackTree : MonoBehaviour {
         if (currentAttack != null){
             //  Has it been long enough for another attack
             if(currentAttack.PassedBaseAttackTime()){
-                var attack = currentAttack.GetNextAttack(attackInputType);
+                var attack = GetAttackFromDictionary(attackInputType);
 
                 // No move next on the tree, start from base corresponding to button pressed
                 if (attack == null){
@@ -103,45 +126,15 @@ public class AttackTree : MonoBehaviour {
             if (behaviourCoroutine.IsPaused || behaviourCoroutine.IsRunning){
                 behaviourCoroutine.Stop();
             }
-
-            behaviourCoroutine = this.StartSafeCoroutine(HighlightTimings(currentAttack));
         }
 
         return currentAttack;
     }
 
-    IEnumerator HighlightTimings(PlayerAttack playerAttack){
-        var sortedMoves = playerAttack.AllMoves.OrderBy(x => x.CutoffTime).ToList();
-        Dictionary<NextMove, bool> alertedMoves = new Dictionary<NextMove, bool>();
-
-        sortedMoves.ForEach(x => alertedMoves[x] = false);
-
-        float alertTime = .3f;
-
-        int count = 0;
-        float beginningTime = playerAttack.StartTime;
-
-        while (count < sortedMoves.Count){
-
-            float elapsedTime = Time.time - beginningTime;
-
-            if (elapsedTime > playerAttack.BaseAttackTime){
-                if (sortedMoves[count].CutoffTime > elapsedTime){
-
-                    if (Mathf.Abs(sortedMoves[count].CutoffTime - elapsedTime) <= alertTime){
-                        if (!alertedMoves[sortedMoves[count]]){
-                            alertedMoves[sortedMoves[count]] = true;
-                            handleInputFlash.TriggerFlash();
-                            count++;
-                        }
-                    }
-                }
-                else{
-                    count++;
-                }
-            }
-
-            yield return null;
+    PlayerAttack GetAttackFromDictionary(AttackInputType attackType){
+        if (attackDictionary.Keys.Contains(attackType)){
+            return  attackDictionary[attackType];
         }
+        return null;
     }
 }

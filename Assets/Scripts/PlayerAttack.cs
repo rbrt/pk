@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour {
                                      attackRange,
                                      attackDuration;    // How long the attack should take
 
-    [SerializeField] protected AttackTree attackTree;
+    [SerializeField] protected AttackHandler attackHandler;
 
     [SerializeField] protected Sprite[] attackSprites;
 
@@ -22,9 +22,9 @@ public class PlayerAttack : MonoBehaviour {
     [SerializeField] protected NextMove[] attack1Moves,
                                           attack2Moves;
 
-    public AttackTree AccessAttackTree{
-        get { return attackTree; }
-        set { attackTree = value; }
+    public AttackHandler AccessAttackHandler{
+        get { return attackHandler; }
+        set { attackHandler = value; }
     }
 
     public NextMove[] Attack1Moves{
@@ -106,27 +106,6 @@ public class PlayerAttack : MonoBehaviour {
     public bool PassedBaseAttackTime(){
         float elapsedTime = Time.time - startTime;
         return elapsedTime > baseAttackTime;
-    }
-
-    public PlayerAttack GetNextAttack(AttackTree.AttackInputType attackInputType){
-        NextMove[] attackMoves = null;
-
-        if (attackInputType == AttackTree.AttackInputType.Attack1){
-            attackMoves = attack1Moves;
-        }
-        else if (attackInputType == AttackTree.AttackInputType.Attack2){
-            attackMoves = attack2Moves;
-        }
-
-        if (attackMoves != null){
-            float elapsedTime = Time.time - startTime;
-            var attacks = attackMoves.Where(x => x != null && elapsedTime < x.CutoffTime).OrderBy(x => x.CutoffTime).ToList();
-            if (attacks.Count > 0){
-                return attacks[0].AccessNextMove;
-            }
-        }
-
-        return null;
     }
 
     public PlayerAttack(){
