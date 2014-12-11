@@ -59,6 +59,16 @@ public class PlayerInputManager : MonoBehaviour {
 			return AttackHandler.AttackInputType.None;
 		}
 
+		// Remove frame delay if raw input is base attack
+		if (inputList[0].inputType == InputTypes.Attack1){
+			inputList.RemoveAt(0);
+			return AttackHandler.AttackInputType.Attack1;
+		}
+		else if (inputList[0].inputType == InputTypes.Attack2){
+			inputList.RemoveAt(0);
+			return AttackHandler.AttackInputType.Attack2;
+		}
+
 		// Wait for minLifetime frames before grabbing an input batch
 		if (inputList[0].frames > minLifetime){
 			return AttackHandler.AttackInputType.None;
