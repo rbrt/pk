@@ -75,10 +75,12 @@ public class PlayerInputManager : MonoBehaviour {
 					if (inputList.Count > 0){
 						// Down Right Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.DownToForwardA1;
 						}
 						// Down Right Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.DownToForwardA2;
 						}
 					}
@@ -91,10 +93,12 @@ public class PlayerInputManager : MonoBehaviour {
 					if (inputList.Count > 0){
 						// Down Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.DownToBackA1;
 						}
 						// Down Left Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.DownToBackA2;
 						}
 					}
@@ -114,10 +118,12 @@ public class PlayerInputManager : MonoBehaviour {
 
 						// Right Right Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.ForwardForwardA1;
 						}
 						// Right Right Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.ForwardForwardA2;
 						}
 					}
@@ -134,11 +140,13 @@ public class PlayerInputManager : MonoBehaviour {
 					if (inputList.Count > 0){
 						// Left Left Attack1
 						if(inputList[0].ValidInput(InputTypes.Attack1)){
+							inputList.RemoveAt(0);
 							Debug.Log("Special!");
 							return AttackHandler.AttackInputType.BackBackA1;
 						}
 						// Left Left Attack2
 						else if(inputList[0].ValidInput(InputTypes.Attack2)){
+							inputList.RemoveAt(0);
 							return AttackHandler.AttackInputType.BackBackA2;
 						}
 					}
