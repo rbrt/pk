@@ -6,7 +6,7 @@ using System.Linq;
 public class FightSequence : MonoBehaviour {
 
     [SerializeField] protected EnemyController enemyController;
-    [SerializeField] protected EnemySpawn enemySpawn;
+    [SerializeField] protected EnemyEncounter enemyEncounter;
     [SerializeField] protected FindFightPositions findFightPositions;
     [SerializeField] protected int simulataneousAttackingEnemies;
 
@@ -26,7 +26,7 @@ public class FightSequence : MonoBehaviour {
 	}
 
 	void Update () {
-        if (enemySpawn.DoneSpawning){
+        if (enemyEncounter.DoneSpawning){
             BringIdleEnemiesInToTheFight();
 
             if (fightingEnemies.Length > 0){
@@ -42,7 +42,7 @@ public class FightSequence : MonoBehaviour {
 	}
 
     void BringIdleEnemiesInToTheFight(){
-        if (enemySpawn.DoneSpawning){
+        if (enemyEncounter.DoneSpawning){
             if(enemyController.GetIdleEnemy(fightingEnemies.ToList()) != null){
                 while (fightingEnemies.Any(x => x == null)){
                     var enemy = enemyController.GetIdleEnemy(fightingEnemies.ToList());

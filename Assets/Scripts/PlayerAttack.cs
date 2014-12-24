@@ -52,7 +52,7 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     public AudioClip AttackSound{
-        get { return attackSounds[Random.Range(0, attackSounds.Length-1)]; } 
+        get { return attackSounds[Random.Range(0, attackSounds.Length-1)]; }
     }
 
     public float AttackRange{
