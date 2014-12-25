@@ -46,7 +46,12 @@ public class EnemyEncounterInspector : Editor {
 		bool refreshKeys = false,
 			 refreshValues = false;
 
-		List<int> indicesToRemove() = new List<int>();
+		List<int> indicesToRemove = new List<int>();
+
+		GUILayout.Space(5);
+
+		EditorGUILayout.BeginVertical(EditorStyles.textArea);
+		GUILayout.Space(5);
 
 		for (int i = 0; i < typesCount; i++){
 
@@ -55,6 +60,7 @@ public class EnemyEncounterInspector : Editor {
 			GUILayout.Label("Enemy: ");
 			GameObject currentKey = keys[i];
 			currentKey = EditorGUILayout.ObjectField(currentKey, typeof(GameObject)) as GameObject;
+
 			if (currentKey != keys[i]){
 				refreshKeys = true;
 				keys[i] = currentKey;
@@ -63,24 +69,31 @@ public class EnemyEncounterInspector : Editor {
 
 			GUILayout.Label("Count: ");
 			int currentValue = values[i];
-			currentValue = EditorGUILayout.IntField(currentValue, EditorStyles.boldLabel);
+			currentValue = EditorGUILayout.IntField(currentValue, EditorStyles.label);
 			if (currentValue != values[i]){
 				refreshValues = true;
 				values[i] = currentValue;
 			}
 
 			if (GUILayout.Button("Del")){
-				indicesToRemove.Add(i)
-
-				// Move this to code post loop
-				keys.RemoveAt(i);
-				values.RemoveAt(i);
-				refreshKeys = true;
-				refreshValues = true;
-				typesCount = encounter.EnemyTypesCount--;
+				indicesToRemove.Add(i);
 			}
 
 			EditorGUILayout.EndHorizontal();
+			GUILayout.Space(5);
+		}
+
+		EditorGUILayout.EndVertical();
+
+		if (indicesToRemove.Count > 0){
+			refreshKeys = true;
+			refreshValues = true;
+
+			for (int i = indicesToRemove.Count - 1; i >= 0; i--){
+				keys.RemoveAt(indicesToRemove[i]);
+				values.RemoveAt(indicesToRemove[i]);
+				typesCount = encounter.EnemyTypesCount--;
+			}
 		}
 
 		if (refreshKeys){
