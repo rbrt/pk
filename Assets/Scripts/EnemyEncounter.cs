@@ -51,7 +51,10 @@ public class EnemyEncounter : MonoBehaviour {
         this.StartSafeCoroutine(GenerateEnemies());
     }
 
+    // Spawn function gets called but nothing happens
     IEnumerator GenerateEnemies(){
+        Debug.Log("yeaaaahhhh");
+
         float spawnTime = .2f;
         enemiesLeftToSpawn = totalEnemyCount;
 
@@ -77,13 +80,4 @@ public class EnemyEncounter : MonoBehaviour {
         enemyController.SpawnEnemy(enemyToSpawn);
         enemiesLeftToSpawn--;
     }
-
-    void OnTriggerEnter(Collider other){
-
-    }
-
-
-
-
-
 }
