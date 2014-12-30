@@ -333,15 +333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f8c4a15a5b942d59dc10ce50d23335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypesCount: 6
+  enemyTypesCount: 1
   enemyPrefabs:
   - {fileID: 100002, guid: c774178e2a1d548dc91410b3c3454df9, type: 2}
-  - {fileID: 100002, guid: c774178e2a1d548dc91410b3c3454df9, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemiesToSpawn: 020000000000000000000000000000000000000000000000
+  enemiesToSpawn: 14000000
   enemyController: {fileID: 1004536423}
 --- !u!4 &123705595
 Transform:

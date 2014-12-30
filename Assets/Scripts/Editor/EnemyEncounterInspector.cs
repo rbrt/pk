@@ -59,7 +59,7 @@ public class EnemyEncounterInspector : Editor {
 
 			GUILayout.Label("Enemy: ");
 			GameObject currentKey = keys[i];
-			currentKey = EditorGUILayout.ObjectField(currentKey, typeof(GameObject)) as GameObject;
+			currentKey = EditorGUILayout.ObjectField(currentKey, typeof(GameObject), allowSceneObjects: true) as GameObject;
 
 			if (currentKey != keys[i]){
 				refreshKeys = true;

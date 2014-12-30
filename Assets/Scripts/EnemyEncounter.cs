@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+    ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +22,6 @@ public class EnemyEncounter : MonoBehaviour {
     protected Dictionary<GameObject, int> enemyTypeToCountMappings;
 
     void Awake(){
-        // Check for matching lengths, fail otherwise
-
         enemyTypeToCountMappings = new Dictionary<GameObject, int>();
         for (int i = 0; i < enemyPrefabs.Length; i++){
             enemyTypeToCountMappings[enemyPrefabs[i]] = enemiesToSpawn[i];
