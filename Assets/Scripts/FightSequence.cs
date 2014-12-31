@@ -13,6 +13,15 @@ public class FightSequence : MonoBehaviour {
     protected Transform playerTransform;
     protected GameObject[] fightingEnemies;
 
+    public void SetFightSequenceReferences(EnemyController controller,
+                                           EnemyEncounter encounter,
+                                           FindFightPositions fightPositions){ 
+        enemyController = controller;
+        enemyEncounter = encounter;
+        findFightPositions = fightPositions;
+        simulataneousAttackingEnemies = 1;
+    }
+
 	void Start () {
         var player = GameObject.Find("PlayerCharacter");
         if (player == null){

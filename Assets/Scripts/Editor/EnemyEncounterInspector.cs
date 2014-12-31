@@ -17,11 +17,11 @@ public class EnemyEncounterInspector : Editor {
 
 		EditorGUILayout.BeginHorizontal();
 		if (GUILayout.Button("Add")){
-			var prefabs = encounter.EnemyPrefabs.ToList();
+			var prefabs = encounter.EnemyPrefabs;
 			prefabs.Add(null);
 			encounter.EnemyPrefabs = prefabs;
 
-			var counts = encounter.EnemiesToSpawn.ToList();
+			var counts = encounter.EnemiesToSpawn;
 			counts.Add(0);
 			encounter.EnemiesToSpawn = counts;
 
@@ -34,15 +34,15 @@ public class EnemyEncounterInspector : Editor {
 			encounter.EnemyTypesCount = 0;
 		}
 
-		// Handle shrinking of Lists
-
-		// Handle growing of Lists
-
-		// Alter dictionary accordingly
 		EditorGUILayout.EndHorizontal();
 
 		var keys = encounter.EnemyPrefabs;
 		var values = encounter.EnemiesToSpawn;
+
+		if (keys == null || values == null){
+			return;
+		}
+
 		bool refreshKeys = false,
 			 refreshValues = false;
 
@@ -57,22 +57,31 @@ public class EnemyEncounterInspector : Editor {
 
 			EditorGUILayout.BeginHorizontal();
 
-			GUILayout.Label("Enemy: ");
-			GameObject currentKey = keys[i];
-			currentKey = EditorGUILayout.ObjectField(currentKey, typeof(GameObject), allowSceneObjects: true) as GameObject;
+			if (i < keys.Count){
+				GUILayout.Label("Enemy: ");
+				GameObject currentKey = keys[i];
+				currentKey = EditorGUILayout.ObjectField(currentKey, typeof(GameObject), allowSceneObjects: true) as GameObject;
 
-			if (currentKey != keys[i]){
-				refreshKeys = true;
-				keys[i] = currentKey;
-				Debug.Log(currentKey.ToString());
+				if (currentKey != keys[i]){
+					if (keys.Contains(currentKey)){
+						Debug.LogWarning("Cannot add same enemy type for multiple keys");
+					}
+					else{
+						refreshKeys = true;
+						keys[i] = currentKey;
+						Debug.Log(currentKey.ToString());
+					}
+				}
 			}
 
-			GUILayout.Label("Count: ");
-			int currentValue = values[i];
-			currentValue = EditorGUILayout.IntField(currentValue, EditorStyles.label);
-			if (currentValue != values[i]){
-				refreshValues = true;
-				values[i] = currentValue;
+			if (i < values.Count){
+				GUILayout.Label("Count: ");
+				int currentValue = values[i];
+				currentValue = EditorGUILayout.IntField(currentValue, EditorStyles.label);
+				if (currentValue != values[i]){
+					refreshValues = true;
+					values[i] = currentValue;
+				}
 			}
 
 			if (GUILayout.Button("Del")){

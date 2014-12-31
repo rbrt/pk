@@ -15,8 +15,7 @@ public class EnemyEncounter : MonoBehaviour {
     [SerializeField] protected EnemyController enemyController;
 
     protected bool doneSpawning;
-    protected int totalEnemyCount,
-                  enemiesLeftToSpawn;
+    protected int totalEnemyCount;
 
     // Dictionaries don't serialize....
     protected Dictionary<GameObject, int> enemyTypeToCountMappings;
@@ -31,6 +30,11 @@ public class EnemyEncounter : MonoBehaviour {
         }
     }
 
+    public EnemyController EnemyControllerAccess{
+        get { return enemyController; }
+        set { enemyController = value; }
+    }
+
     public bool DoneSpawning {
         get { return doneSpawning; }
     }
@@ -41,12 +45,22 @@ public class EnemyEncounter : MonoBehaviour {
     }
 
     public List<GameObject> EnemyPrefabs{
-        get { return enemyPrefabs.ToList(); }
+        get {
+            if (enemyPrefabs == null){
+                enemyPrefabs = new GameObject[0];
+            }
+            return enemyPrefabs.ToList();
+        }
         set { enemyPrefabs = value.ToArray(); }
     }
 
     public List<int> EnemiesToSpawn{
-        get { return enemiesToSpawn.ToList(); }
+        get {
+            if (enemiesToSpawn == null){
+                enemiesToSpawn = new int[0];
+            }
+            return enemiesToSpawn.ToList();
+        }
         set { enemiesToSpawn = value.ToArray(); }
     }
 
@@ -56,7 +70,7 @@ public class EnemyEncounter : MonoBehaviour {
 
     IEnumerator GenerateEnemies(){
         float spawnTime = .2f;
-        enemiesLeftToSpawn = totalEnemyCount;
+        int enemiesLeftToSpawn = totalEnemyCount;
 
         doneSpawning = false;
 
@@ -67,7 +81,8 @@ public class EnemyEncounter : MonoBehaviour {
 
             GameObject prefabType = validEnemyTypes[Random.Range(0, validEnemyTypes.Count - 1)];
             enemyTypeToCountMappings[prefabType]--;
-            SpawnEnemy(prefabType);
+
+            enemyController.SpawnEnemy(prefabType);
 
             yield return new WaitForSeconds(spawnTime);
         }
@@ -75,9 +90,4 @@ public class EnemyEncounter : MonoBehaviour {
         doneSpawning = true;
     }
 
-    // For now default to spawning enemy on right side of screen
-    void SpawnEnemy(GameObject enemyToSpawn){
-        enemyController.SpawnEnemy(enemyToSpawn);
-        enemiesLeftToSpawn--;
-    }
 }

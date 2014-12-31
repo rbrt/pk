@@ -7,6 +7,11 @@ public class EnemyEncounterTrigger : MonoBehaviour {
 	GameObject playerObject;
 	[SerializeField] protected EnemyEncounter enemyEncounter;
 
+	public EnemyEncounter EnemyEncounterAccess{
+		get { return enemyEncounter; }
+		set { enemyEncounter = value; }
+	}
+
 	void Awake(){
 		if (!GetComponent<Collider>().isTrigger){
 			Debug.LogError("Collider must be a trigger", this.gameObject);
@@ -16,8 +21,6 @@ public class EnemyEncounterTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		Debug.Log(other.gameObject == playerObject);
-
 		if (other.gameObject == playerObject){
 			enemyEncounter.SpawnEnemies();
 		}
