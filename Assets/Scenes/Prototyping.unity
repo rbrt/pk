@@ -1108,7 +1108,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 966611706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.58990002, y: 0, z: 0}
+  m_LocalPosition: {x: -5.40999985, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 856776083}
@@ -1340,6 +1340,7 @@ GameObject:
   - 114: {fileID: 1280485267}
   - 114: {fileID: 1280485268}
   - 65: {fileID: 1280485269}
+  - 54: {fileID: 1280485270}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -1423,6 +1424,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1280485270
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1280485264}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1297599267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1885,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1917395193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.47940016, y: 0, z: 0}
+  m_LocalPosition: {x: 4.73000002, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 856776083}

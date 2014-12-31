@@ -23,8 +23,11 @@ public class EnemyEncounter : MonoBehaviour {
 
     void Awake(){
         enemyTypeToCountMappings = new Dictionary<GameObject, int>();
+        totalEnemyCount = 0;
+
         for (int i = 0; i < enemyPrefabs.Length; i++){
             enemyTypeToCountMappings[enemyPrefabs[i]] = enemiesToSpawn[i];
+            totalEnemyCount += enemiesToSpawn[i];
         }
     }
 
@@ -51,10 +54,7 @@ public class EnemyEncounter : MonoBehaviour {
         this.StartSafeCoroutine(GenerateEnemies());
     }
 
-    // Spawn function gets called but nothing happens
     IEnumerator GenerateEnemies(){
-        Debug.Log("yeaaaahhhh");
-
         float spawnTime = .2f;
         enemiesLeftToSpawn = totalEnemyCount;
 
