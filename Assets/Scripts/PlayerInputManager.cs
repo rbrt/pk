@@ -61,11 +61,13 @@ public class PlayerInputManager : MonoBehaviour {
 
 		// Remove frame delay if raw input is base attack
 		if (inputList[0].inputType == InputTypes.Attack1){
-			inputList.RemoveAt(0);
+			//inputList.RemoveAt(0);
+			inputList = new List<InputPair>();
 			return AttackHandler.AttackInputType.Attack1;
 		}
 		else if (inputList[0].inputType == InputTypes.Attack2){
-			inputList.RemoveAt(0);
+			//inputList.RemoveAt(0);
+			inputList = new List<InputPair>();
 			return AttackHandler.AttackInputType.Attack2;
 		}
 

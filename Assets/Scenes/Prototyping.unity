@@ -2876,7 +2876,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: f39cf03da77ec4ae69e4440e755577d1, type: 2}
       propertyPath: attackDuration
-      value: .200000003
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: f39cf03da77ec4ae69e4440e755577d1, type: 2}
+      propertyPath: attackRange
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f39cf03da77ec4ae69e4440e755577d1, type: 2}
+      propertyPath: attackRange
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: f39cf03da77ec4ae69e4440e755577d1, type: 2}
+      propertyPath: attackRange
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f39cf03da77ec4ae69e4440e755577d1, type: 2}

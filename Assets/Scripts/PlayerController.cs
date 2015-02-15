@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
                     punchDuration = .3f,
                     punchRange = .5f,
                     damageDuration = .2f,
-                    blockDamageReduction = .2f,
+                    blockDamageReduction = .1f,
                     maxYvalue = .69f,
                     minYValue = -1.25f,
                     maxXValue = 15,
@@ -71,29 +71,41 @@ public class PlayerController : MonoBehaviour {
 
         var pos = transform.position;
 
-        if (!attacking && !damaged){
+        if (!attacking){
             if (moveLeft && pos.x > currentMinX){
                 transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
-                pos.x -= hMoveSpeed;
+                if (!block){
+                    pos.x -= hMoveSpeed;
+                }
             }
             else if (moveRight && pos.x < currentMaxX){
                 transform.rotation = Quaternion.Euler(Vector3.zero);
-                pos.x += hMoveSpeed;
+                if (!block){
+                    pos.x += hMoveSpeed;
+                }
             }
 
             if (moveUp && pos.y < maxYvalue){
-                pos.y += vMoveSpeed;
+                if (block){
+                    pos.y += vMoveSpeed / 2;
+                }
+                else{
+                    pos.y += vMoveSpeed;
+                }
             }
             else if (moveDown && pos.y > minYValue){
-                pos.y -= vMoveSpeed;
+                if (block){
+                    pos.y -= vMoveSpeed / 2;
+                }
+                else{
+                    pos.y -= vMoveSpeed;
+                }
             }
         }
 
-        // Only change direction when blocking but stay in place
-        if (!block){
+        if (!damaged){
             transform.position = pos;
         }
-
 	}
 
     bool LeftInputDown{
@@ -208,7 +220,7 @@ public class PlayerController : MonoBehaviour {
             playerInputManager.SendInput(PlayerInputManager.InputTypes.Attack2);
         }
 
-        if (!attacking){
+        if (!attacking && !damaged && !block){
             if (currentPlayerAttack != AttackHandler.AttackInputType.None){
                 var attack = attackHandler.GetAttack(currentPlayerAttack);
                 if (attack != null){
@@ -282,9 +294,9 @@ public class PlayerController : MonoBehaviour {
         attacking = true;
         animateDude.Attack(attack.AttackSprites);
 
-        Debug.DrawRay(transform.position, (transform.right * attack.AttackRange), Color.green, 2f);
+        Debug.DrawRay(transform.position - transform.right.normalized * .2f, (transform.right * attack.AttackRange), Color.green, 2f);
 
-        var hits = Physics.RaycastAll(transform.position, transform.right, attack.AttackRange).Where(x => ColliderIsEnemy(x.collider)).ToList();
+        var hits = Physics.RaycastAll(transform.position - transform.right * .2f, transform.right, attack.AttackRange).Where(x => ColliderIsEnemy(x.collider)).ToList();
 
         if (hits.Count() > 0){
             for (int i = 0; i < Mathf.Min(simultaneousEnemiesToAttack, hits.Count()); i++){
