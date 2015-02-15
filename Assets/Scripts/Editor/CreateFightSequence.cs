@@ -18,6 +18,7 @@ public class CreateFightSequence : MonoBehaviour {
 		enemyEncounter.transform.parent = newSequence.transform;
 		var enemyEncounterComponent = enemyEncounter.AddComponent<EnemyEncounter>();
 		enemyEncounterComponent.EnemyControllerAccess = GameObject.FindObjectOfType<EnemyController>();
+		enemyEncounterComponent.FightSequenceAccess = fightSequenceComponent;
 
 		var encounterCollider = newSequence.AddComponent<BoxCollider>();
 		encounterCollider.size = new Vector3(2, 5, 5);

@@ -247,6 +247,9 @@ public class Enemy : MonoBehaviour {
     IEnumerator Dead(){
         animateEnemy.Dead();
 
+        GameObject.Destroy(GetComponent<Rigidbody>());
+        GameObject.Destroy(GetComponent<BoxCollider>());
+
         if (fightSequence){
             fightSequence.HandleEnemyDeath(gameObject);
         }

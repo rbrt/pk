@@ -13,6 +13,7 @@ public class EnemyEncounter : MonoBehaviour {
     [SerializeField] protected int[] enemiesToSpawn;
 
     [SerializeField] protected EnemyController enemyController;
+    [SerializeField] protected FightSequence fightSequence;
 
     protected bool doneSpawning;
     protected int totalEnemyCount;
@@ -28,6 +29,11 @@ public class EnemyEncounter : MonoBehaviour {
             enemyTypeToCountMappings[enemyPrefabs[i]] = enemiesToSpawn[i];
             totalEnemyCount += enemiesToSpawn[i];
         }
+    }
+
+    public FightSequence FightSequenceAccess{
+        get { return fightSequence; }
+        set { fightSequence = value; }
     }
 
     public EnemyController EnemyControllerAccess{
@@ -65,6 +71,7 @@ public class EnemyEncounter : MonoBehaviour {
     }
 
     public void SpawnEnemies(){
+        enemyController.SetFightSequence(fightSequence);
         this.StartSafeCoroutine(GenerateEnemies());
     }
 
@@ -79,7 +86,8 @@ public class EnemyEncounter : MonoBehaviour {
                                                           .Where(x => enemyTypeToCountMappings[x] > 0)
                                                           .ToList();
 
-            GameObject prefabType = validEnemyTypes[Random.Range(0, validEnemyTypes.Count - 1)];
+            int index = Random.Range(0, validEnemyTypes.Count - 1);
+            GameObject prefabType = validEnemyTypes[index];
             enemyTypeToCountMappings[prefabType]--;
 
             enemyController.SpawnEnemy(prefabType);

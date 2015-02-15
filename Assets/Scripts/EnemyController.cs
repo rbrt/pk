@@ -43,6 +43,10 @@ public class EnemyController : MonoBehaviour {
         return position;
     }
 
+    public void SetFightSequence(FightSequence fightSequence){
+        this.fightSequence = fightSequence;
+    }
+
     public enum SpawnBehaviour {Random, Left, Right};
 
     public void SpawnEnemy(GameObject enemyToInstantiate){
