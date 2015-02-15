@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
                    moveDown,
                    attacking,
                    damaged,
-                   block;
+                   block,
+                   dead;
 
     protected float hMoveSpeed = .03f,
                     vMoveSpeed = .02f,
@@ -67,6 +68,11 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void Update () {
+        if (dead){
+            animateDude.Dead();
+            return;
+        }
+
         HandleInput();
 
         var pos = transform.position;
@@ -333,5 +339,11 @@ public class PlayerController : MonoBehaviour {
         }
 
         healthBar.DecrementHealth(damage);
+    }
+
+    public void Die(){
+        dead = true;
+        EnemyEncounter.CurrentEncounter.PlayerDied();
+        animateDude.Dead();
     }
 }

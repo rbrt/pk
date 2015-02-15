@@ -83,4 +83,8 @@ public class FightSequence : MonoBehaviour {
         findFightPositions = fightPositions;
         simulataneousAttackingEnemies = 1;
     }
+
+    public void PlayerDied(){
+        fightingEnemies.ToList().ForEach(enemy => enemy.GetComponent<Enemy>().GoIdle());
+    }
 }

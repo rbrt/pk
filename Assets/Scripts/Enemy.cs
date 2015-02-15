@@ -268,4 +268,9 @@ public class Enemy : MonoBehaviour {
             behaviourCoroutine = this.StartSafeCoroutine(Damaged(damage, attackEffects));
         }
     }
+
+    public void GoIdle(){
+        enemyState = EnemyStates.Idle;
+        behaviourCoroutine = this.StartSafeCoroutine(Idle());
+    }
 }

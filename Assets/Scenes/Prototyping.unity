@@ -2019,7 +2019,7 @@ Transform:
   - {fileID: 2128797727}
   - {fileID: 949335448}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!114 &1280485266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,7 +2284,6 @@ GameObject:
   - 92: {fileID: 1631632036}
   - 124: {fileID: 1631632035}
   - 81: {fileID: 1631632034}
-  - 114: {fileID: 1631632039}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2352,24 +2351,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1631632033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.31400001, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 856776083}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
---- !u!114 &1631632039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1631632033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60099eec1893d437c8995ab898cfd360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1280485264}
+  m_Father: {fileID: 1706398107}
+  m_RootOrder: 0
 --- !u!1 &1652511007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,6 +2389,47 @@ Transform:
   - {fileID: 1265742066}
   m_Father: {fileID: 19115414}
   m_RootOrder: 1
+--- !u!1 &1706398106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1706398107}
+  - 114: {fileID: 1706398108}
+  m_Layer: 0
+  m_Name: CameraTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706398107
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1706398106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.31400001, z: -4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1631632038}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+--- !u!114 &1706398108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1706398106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60099eec1893d437c8995ab898cfd360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1280485264}
 --- !u!1 &1828213279
 GameObject:
   m_ObjectHideFlags: 0

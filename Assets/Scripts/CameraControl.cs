@@ -49,7 +49,7 @@ public class CameraControl : MonoBehaviour {
         GameObject.Destroy(GameObject.Find("MinXBorder"));
         GameObject.Destroy(GameObject.Find("MaxXBorder"));
 
-        thisCamera = GetComponent<Camera>();
+        thisCamera = GetComponentInChildren<Camera>();
 	}
 
 	void Update () {

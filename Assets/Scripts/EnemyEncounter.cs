@@ -5,6 +5,12 @@ using System.Linq;
 
 public class EnemyEncounter : MonoBehaviour {
 
+    static EnemyEncounter currentEncounter;
+
+    public static EnemyEncounter CurrentEncounter{
+        get { return currentEncounter; }
+    }
+
     [HideInInspector]
     [SerializeField] protected int enemyTypesCount;
     [HideInInspector]
@@ -88,7 +94,12 @@ public class EnemyEncounter : MonoBehaviour {
         }
     }
 
+    public void PlayerDied(){
+        fightSequence.PlayerDied();
+    }
+
     public void StartEncounter(){
+        currentEncounter = this;
         LockCameraAndPlayerMovement();
         enemyController.SetFightSequence(fightSequence);
         this.StartSafeCoroutine(GenerateEnemies());

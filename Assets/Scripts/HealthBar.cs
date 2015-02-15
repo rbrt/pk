@@ -39,7 +39,7 @@ public class HealthBar : MonoBehaviour {
     public void DecrementHealth(float amount){
         currentHealth -= amount;
         if (currentHealth <= 0){
-            Debug.Log("Game Over!");
+            PlayerController.Instance.Die();
         }
     }
 
