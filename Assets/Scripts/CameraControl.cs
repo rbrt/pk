@@ -8,14 +8,47 @@ public class CameraControl : MonoBehaviour {
                     minX = 0,
                     maxX = 15,
                     cameraScrollAmount = 1f,
-                    horizontalScrollAmount = 1.75f;
+                    horizontalScrollAmount = 1.75f,
+                    currentMinX = 0,
+                    currentMaxX = 0;
 
     [SerializeField] protected GameObject player;
-    [SerializeField] protected GameObject street;
+
+    bool cameraScrollLocked = false;
 
     Camera thisCamera;
+    SafeCoroutine cameraMovementOverride;
+
+    static CameraControl instance;
+
+    public static CameraControl Instance{
+        get { return instance; }
+    }
+
+    public void LockMinAndMaxX(float targetX){
+        cameraScrollLocked = true;
+        cameraMovementOverride = this.StartSafeCoroutine(CenterCameraOnFight(targetX));
+    }
+
+    public void UnlockMinAndMaxX(){
+        cameraScrollLocked = false;
+        if (cameraMovementOverride.IsRunning){
+            cameraMovementOverride.Stop();
+        }
+    }
+
+    void Awake(){
+        instance = this;
+    }
 
 	void Start () {
+        minX = GameObject.Find("MinXBorder").transform.position.x;
+        maxX = GameObject.Find("MaxXBorder").transform.position.x;
+        currentMinX = minX;
+        currentMaxX = maxX;
+        GameObject.Destroy(GameObject.Find("MinXBorder"));
+        GameObject.Destroy(GameObject.Find("MaxXBorder"));
+
         thisCamera = GetComponent<Camera>();
 	}
 
@@ -30,14 +63,38 @@ public class CameraControl : MonoBehaviour {
             thisPos.y += Time.deltaTime * cameraScrollAmount;
         }
 
-        if (thisCamera.WorldToScreenPoint(pos).x > (Screen.width * .8f) && thisPos.x < maxX){
-            thisPos.x += Time.deltaTime * horizontalScrollAmount;
-        }
-        else if (thisCamera.WorldToScreenPoint(pos).x < (Screen.width * .2f) && thisPos.x > minX){
-            thisPos.x -= Time.deltaTime * horizontalScrollAmount;
+        if (!cameraScrollLocked){
+            // Move camera right
+            if (thisCamera.WorldToScreenPoint(pos).x > (Screen.width * .8f) && thisPos.x < currentMaxX){
+                thisPos.x += Time.deltaTime * horizontalScrollAmount;
+            }
+            // Move camera left
+            else if (thisCamera.WorldToScreenPoint(pos).x < (Screen.width * .2f) && thisPos.x > currentMinX){
+                thisPos.x -= Time.deltaTime * horizontalScrollAmount;
+            }
         }
 
         transform.position = thisPos;
 	}
+
+    IEnumerator CenterCameraOnFight(float targetX){
+        float scroll = 2f;
+        var pos = transform.position;
+
+        if (targetX < transform.position.x){
+            while (targetX < transform.position.x){
+                pos.x -= scroll * Time.deltaTime;
+                transform.position = pos;
+                yield return null;
+            }
+        }
+        else if (targetX > transform.position.x){
+            while (targetX > transform.position.x){
+                pos.x += scroll * Time.deltaTime;
+                transform.position = pos;
+                yield return null;
+            }
+        }
+    }
 
 }

@@ -22,7 +22,8 @@ public class EnemyEncounterTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject == playerObject){
-			enemyEncounter.SpawnEnemies();
+			enemyEncounter.StartEncounter();
+			GetComponent<Collider>().enabled = false;
 		}
 	}
 

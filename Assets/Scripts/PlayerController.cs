@@ -27,7 +27,9 @@ public class PlayerController : MonoBehaviour {
                     maxYvalue = .69f,
                     minYValue = -1.25f,
                     maxXValue = 15,
-                    minXValue = -3.3f;
+                    minXValue = -3.3f,
+                    currentMinX = 0,
+                    currentMaxX = 0;
 
     protected int simultaneousEnemiesToAttack = 3;
 
@@ -39,6 +41,10 @@ public class PlayerController : MonoBehaviour {
         set { instance.currentPlayerAttack = value; }
     }
 
+    public static PlayerController Instance{
+        get { return instance; }
+    }
+
     bool EngagedInAction{
         get {return attacking || damaged || block;}
     }
@@ -48,6 +54,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Awake(){
+        minXValue = GameObject.Find("MinXBorder").transform.position.x;
+        maxXValue = GameObject.Find("MaxXBorder").transform.position.x;
+        currentMinX = minXValue;
+        currentMaxX = maxXValue;
+
         instance = this;
     }
 
@@ -61,11 +72,11 @@ public class PlayerController : MonoBehaviour {
         var pos = transform.position;
 
         if (!attacking && !damaged){
-            if (moveLeft && pos.x > minXValue){
+            if (moveLeft && pos.x > currentMinX){
                 transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
                 pos.x -= hMoveSpeed;
             }
-            else if (moveRight && pos.x < maxXValue){
+            else if (moveRight && pos.x < currentMaxX){
                 transform.rotation = Quaternion.Euler(Vector3.zero);
                 pos.x += hMoveSpeed;
             }
@@ -243,6 +254,17 @@ public class PlayerController : MonoBehaviour {
                     Enemy enemy = collider.GetComponent<Enemy>();
                     return enemy != null && enemy.TypeOfEnemy == x;
                 });
+    }
+
+    public void LockMinAndMaxX(float baseX){
+        float lockOffset = 2.5f;
+        currentMinX = baseX - lockOffset;
+        currentMaxX = baseX + lockOffset;
+    }
+
+    public void UnlockMinAndMaxX(){
+        currentMaxX = maxXValue;
+        currentMinX = minXValue;
     }
 
     IEnumerator Block(){

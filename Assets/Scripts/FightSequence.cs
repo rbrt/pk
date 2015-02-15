@@ -38,6 +38,9 @@ public class FightSequence : MonoBehaviour {
                     }
                 }
             }
+            else{
+                enemyEncounter.EnemyEncounterFinished();
+            }
         }
 	}
 

@@ -15,7 +15,8 @@ public class EnemyEncounter : MonoBehaviour {
     [SerializeField] protected EnemyController enemyController;
     [SerializeField] protected FightSequence fightSequence;
 
-    protected bool doneSpawning;
+    protected bool doneSpawning,
+                   encounterFinished = false;
     protected int totalEnemyCount;
 
     // Dictionaries don't serialize....
@@ -70,7 +71,25 @@ public class EnemyEncounter : MonoBehaviour {
         set { enemiesToSpawn = value.ToArray(); }
     }
 
-    public void SpawnEnemies(){
+    void LockCameraAndPlayerMovement(){
+        CameraControl.Instance.LockMinAndMaxX(transform.parent.position.x);
+        PlayerController.Instance.LockMinAndMaxX(transform.parent.position.x);
+    }
+
+    void UnlockCameraAndPlayerMovement(){
+        CameraControl.Instance.UnlockMinAndMaxX();
+        PlayerController.Instance.UnlockMinAndMaxX();
+    }
+
+    public void EnemyEncounterFinished(){
+        if (!encounterFinished){
+            UnlockCameraAndPlayerMovement();
+            encounterFinished = true;
+        }
+    }
+
+    public void StartEncounter(){
+        LockCameraAndPlayerMovement();
         enemyController.SetFightSequence(fightSequence);
         this.StartSafeCoroutine(GenerateEnemies());
     }
@@ -88,10 +107,9 @@ public class EnemyEncounter : MonoBehaviour {
 
             int index = Random.Range(0, validEnemyTypes.Count - 1);
             GameObject prefabType = validEnemyTypes[index];
+
             enemyTypeToCountMappings[prefabType]--;
-
             enemyController.SpawnEnemy(prefabType);
-
             yield return new WaitForSeconds(spawnTime);
         }
 
